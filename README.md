@@ -4,7 +4,7 @@ Un modele de projet Mobile pour le Parcours
 
 ## Getting Started
 
-<ins>Etape 1: Renommer les fichiers suivants:</ins>
+#### <ins>**Etape 1: Renommer les fichiers suivants:**</ins> 
 
 -   **pubspec.example.yaml** en [**pubspec.yaml**](#)
 -   **lib/apps/MonApplication.example.dart** en [**lib/apps/MonApplication.dart**](#libappsmonapplicationdart) 
@@ -14,13 +14,14 @@ Un modele de projet Mobile pour le Parcours
 -   **lib/utils/StockageKeys.example.dart** en [**lib/utils/StockageKeys.dart**](#libutilsstockagekeysdart)
 
 <br>
-<ins>Etape 2: Demarrer le projet</ins>
+
+#### <ins>**Etape 2: Demarrer le projet**</ins> 
+
 -   executer la commande: **flutter pub get** pour installer les dependances et configurer le projet
 -   executer la commande: **flutter run** pour lancer l'application
 <br>
 <br>
-<br>
-<br>
+
 
 ## Glossaire
 
