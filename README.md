@@ -4,14 +4,19 @@ Un modele de projet Mobile pour le Parcours
 
 ## Getting Started
 
-#### <ins>**Etape 1: Renommer les fichiers suivants:**</ins> 
+#### <ins>**Etape 1: Dupliquer ces fichiers en le renommant de la manière suivante:**</ins> 
 
--   **pubspec.example.yaml** en [**pubspec.yaml**](#)
--   **lib/apps/MonApplication.example.dart** en [**lib/apps/MonApplication.dart**](#libappsmonapplicationdart) 
--   **lib/utils/Constantes.example.dart** en [**lib/utils/Constantes.dart**](#libutilsconstantesdart)
--   **lib/utils/Routes.example.dart** en [**lib/utils/Routes.dart**](#libutilsroutesdart)
--   **lib/utils/RoutesManager.example.dart** en [**lib/utils/RoutesManager.dart**](#libutilsroutesmanagerdart)
--   **lib/utils/StockageKeys.example.dart** en [**lib/utils/StockageKeys.dart**](#libutilsstockagekeysdart)
+-   pubspec.example.yaml en [**pubspec.yaml**](#)
+
+-   lib/apps/MonApplication.example.dart en [**lib/apps/MonApplication.dart**](#libappsmonapplicationdart) 
+
+-   lib/utils/Constantes.example.dart en [**lib/utils/Constantes.dart**](#libutilsconstantesdart)
+
+-   lib/utils/Routes.example.dart en [**lib/utils/Routes.dart**](#libutilsroutesdart)
+
+-   lib/utils/RoutesManager.example.dart en [**lib/utils/RoutesManager.dart**](#libutilsroutesmanagerdart)
+
+-   lib/utils/StockageKeys.example.dart en [**lib/utils/StockageKeys.dart**](#libutilsstockagekeysdart)
 
 <br>
 
