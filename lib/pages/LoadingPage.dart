@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:squelette_mobile_parcours/utils/GlobalColors.dart";
 
 import "../utils/Routes.dart";
 
@@ -16,7 +17,7 @@ class _LoadingPageState extends State<LoadingPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
       await Future.delayed(Duration(seconds: 5));
-      Navigator.pushReplacementNamed(context, Routes.TemplateRoutes);
+      Navigator.pushReplacementNamed(context, Routes.LoginRoute);
     });
   }
   Widget build(BuildContext context) {
@@ -27,7 +28,23 @@ class _LoadingPageState extends State<LoadingPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Positioned(child: Image.asset("assets/orange.jpg", width: 150, )),
+            Image.asset("assets/orange.jpg", width: 150, ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Orange  ", style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 30,
+                  color: GlobalColors.orange
+                ),),
+                Text("Stock", style: TextStyle(
+                  fontSize: 25,
+                ),),
+              ],
+            ),
+            SizedBox(
+              height: 150,
+            ),
             Text("Loading...", style: TextStyle(
               fontSize: 18
             ),)
