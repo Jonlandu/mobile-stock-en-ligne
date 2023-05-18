@@ -18,7 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isVisible = false;
   var formkey = GlobalKey<FormState>();
-  var txtEmail = TextEditingController(text: Constantes.DefaultLogin);
+  var txtEmail = TextEditingController(text: Constantes.DefaultEmail);
   var txtPassword = TextEditingController(text: Constantes.DefaultPassword);
   bool viewPassword = false;
 
@@ -62,88 +62,14 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                         ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                          width: 350,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(29),
-                              color: GlobalColors.greyChamp),
-                          child: TextFormField(
-                            keyboardType: TextInputType.emailAddress,
-                            controller: txtEmail,
-                            validator: (val) =>
-                                val!.isEmpty ? "Adresse email invalide" : null,
-                            decoration: InputDecoration(
-                              icon: Icon(
-                                Icons.email,
-                                color: Colors.black,
-                              ),
-                              hintText: "Votre Email",
-                              border: InputBorder.none,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                          width: 350,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(29),
-                              color: GlobalColors.greyChamp),
-                          child: TextFormField(
-                            obscureText: true,
-                            controller: txtPassword,
-                            validator: (val) =>
-                                val!.isEmpty ? "Champ obligatoire" : null,
-                            decoration: InputDecoration(
-                                icon: Icon(
-                                  Icons.lock,
-                                  color: Colors.black,
-                                ),
-                                /*suffix: Icon(
-                                  Icons.visibility,
-                                  color: Colors.black,
-                                ),*/
-                                hintText: "Votre Mot de passe",
-                                border: InputBorder.none),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          padding:
-                              EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                          width: 350,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(29),
-                              color: GlobalColors.orange),
-                          height: 50,
-                          child: Builder(
-                            builder: (ctx) {
-                              return TextButton(
-                                onPressed: () => _validateForm(ctx),
-                                child: Text(
-                                  "Connexion",
-                                  style:
-                                      TextStyle(color: Colors.white, fontSize: 20),
-                                ),
-                              );
-                            }
-                          ),
-                        ),
+                        _champEmail(),
+                        _champPassword(),
+                        _buttonValidation(),
                         SizedBox(
                           height: 7,
                         ),
-                        TextButton(
-                            onPressed: () {},
-                            child: Container(
-                              child: Text(
-                                "Vous n'avez pas de compte ? ",
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            )),
+                       TextButton(onPressed: () => Navigator.pushNamed(context, Routes.RegisterRoute), child: Text("Vous n'avez pas de compte ?", style: TextStyle(color: Colors.black),)),
+
                         SizedBox(
                           height: 7,
                         ),
@@ -172,6 +98,83 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Widget _champEmail(){
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      padding:
+      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      width: 350,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(29),
+          color: GlobalColors.greyChamp),
+      child: TextFormField(
+        keyboardType: TextInputType.emailAddress,
+        controller: txtEmail,
+        validator: (val) =>
+        val!.isEmpty ? "Adresse email invalide" : null,
+        decoration: InputDecoration(
+          icon: Icon(
+            Icons.email,
+            color: Colors.black,
+          ),
+          hintText: "Votre Email",
+          border: InputBorder.none,
+        ),
+      ),
+    );
+  }
+  Widget _champPassword(){
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      padding:
+      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      width: 350,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(29),
+          color: GlobalColors.greyChamp),
+      child: TextFormField(
+        obscureText: true,
+        controller: txtPassword,
+        validator: (val) =>
+        val!.isEmpty ? "Champ obligatoire" : null,
+        decoration: InputDecoration(
+            icon: Icon(
+              Icons.lock,
+              color: Colors.black,
+            ),
+            /*suffix: Icon(
+                                  Icons.visibility,
+                                  color: Colors.black,
+                                ),*/
+            hintText: "Votre Mot de passe",
+            border: InputBorder.none),
+      ),
+    );
+  }
+  Widget _buttonValidation(){
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      padding:
+      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      width: 350,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(29),
+          color: GlobalColors.orange),
+      height: 50,
+      child: Builder(
+          builder: (ctx) {
+            return TextButton(
+              onPressed: () => _validateForm(ctx),
+              child: Text(
+                "Connexion",
+                style:
+                TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            );
+          }
+      ),
+    );
+  }
   void _validateForm(BuildContext ctx) async {
     FocusScope.of(context).requestFocus(new FocusNode());
     if (!formkey.currentState!.validate()) {

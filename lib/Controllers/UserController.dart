@@ -26,4 +26,20 @@ class UserController with ChangeNotifier{
 
 
   }
+
+  Future<HttpResponse> register(Map data) async{
+    var url="${Constantes.registerEndpoint}";
+    HttpResponse response = await postData(url, data);
+    if(response.status){
+      // if(response!= null/){
+      user=UserModel.fromJson(response.data?['user'] ?? {});
+      stockage?.write("user", response.data?["user"] ?? {});
+      stockage?.write("token", response.data?["token"]?? "");
+      notifyListeners();
+    }
+
+    return response;
+
+
+  }
 }

@@ -10,16 +10,16 @@ String userModelToJson(UserModel data) => json.encode(data.toJson());
 
 class UserModel {
   int? id;
-  String? nom;
-  String? prenom;
+  String? name;
+  String? firstname;
   String? phone;
   String? email;
   String? token;
 
   UserModel({
     this.id,
-    this.nom,
-    this.prenom,
+    this.name,
+    this.firstname,
     this.phone,
     this.email,
     this.token,
@@ -27,8 +27,8 @@ class UserModel {
 
   factory UserModel.fromJson(Map json) => UserModel(
     id: json["id"],
-    nom: json["nom"],
-    prenom: json["prenom"],
+    name: json["name"],
+    firstname: json["firstname"],
     phone: json["phone"],
     email: json["email"],
     token: json["token"],
@@ -36,8 +36,8 @@ class UserModel {
 
   Map<String, dynamic> toJson() => {
     "id": id,
-    "nom": nom,
-    "prenom": prenom,
+    "name": name,
+    "firstname": firstname,
     "phone": phone,
     "email": email,
     "token": token,
