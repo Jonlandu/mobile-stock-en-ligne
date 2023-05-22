@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../pages/TemplatePage.dart';
-import 'Routes.dart';
+import 'Routes.example.dart';
 
 class RoutesManager {
   static Route route(RouteSettings r) {

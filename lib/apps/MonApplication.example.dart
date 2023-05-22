@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../utils/RoutesManager.dart';
+import '../utils/Routes.example.dart';
+import '../utils/RoutesManager.example.dart';
 
-import '../utils/Routes.dart';
+
+
 
 class MonApplication extends StatelessWidget {
   @override
