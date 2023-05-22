@@ -5,13 +5,13 @@ import 'package:get_storage/get_storage.dart';
 void main() async {
   await GetStorage.init();
 
-  ErrorWidget.builder = (FlutterErrorDetails details) {
+ /* ErrorWidget.builder = (FlutterErrorDetails details) {
     print(details.stack);
     return Scaffold(
       body: Center(
         child: Text("Erreur inattendue"),
       ),
     );
-  };
+  };*/
   runApp(MonApplication());
 }
