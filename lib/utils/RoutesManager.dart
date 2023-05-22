@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:squelette_mobile_parcours/pages/Auth/LoginPage.dart';
+import 'package:squelette_mobile_parcours/pages/Auth/RegisterPage.dart';
 import 'package:squelette_mobile_parcours/pages/LoadingPage.dart';
 
 import '../pages/TemplatePage.dart';
@@ -15,6 +16,8 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_) => LoadingPage());
       case Routes.LoginRoute:
         return MaterialPageRoute(builder: (_) => LoginPage());
+      case Routes.RegisterRoute:
+        return MaterialPageRoute(builder: (_)=> RegisterPage());
 
 
       default:

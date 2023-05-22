@@ -18,8 +18,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isVisible = false;
   var formkey = GlobalKey<FormState>();
-  var txtEmail = TextEditingController(text: Constantes.DefaultEmail);
-  var txtPassword = TextEditingController(text: Constantes.DefaultPassword);
+  var txtEmail = TextEditingController();
+  var txtPassword = TextEditingController();
   bool viewPassword = false;
 
   @override
@@ -197,7 +197,8 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       var msg =
           res.isException == true ? res.errorMsg : (res.data?['message'] ?? "");
-      print("mqg=====!!! $msg");
+
+      print("mqg=====!!! : $msg");
       ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 5),

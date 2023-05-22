@@ -17,11 +17,11 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool isVisible = false;
   var formkey = GlobalKey<FormState>();
-  var txtName = TextEditingController(text: Constantes.DefaultName);
-  var txtFirstName = TextEditingController(text: Constantes.DefaultFistName);
-  var txtEmail = TextEditingController(text: Constantes.DefaultEmail);
-  var txtPhone = TextEditingController(text: Constantes.DefaultPhone);
-  var txtPassword = TextEditingController(text: Constantes.DefaultPassword);
+  var txtName = TextEditingController();
+  var txtFirstName = TextEditingController();
+  var txtEmail = TextEditingController();
+  var txtPhone = TextEditingController();
+  var txtPassword = TextEditingController();
 
   bool viewPassword = false;
   @override

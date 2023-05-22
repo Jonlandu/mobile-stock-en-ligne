@@ -43,6 +43,7 @@ Future<HttpResponse> postData(String api_url, Map data) async{
     var successList=[200, 201];
     var msg=json.decode(response.body);
     var st=successList.contains(response.statusCode);
+    if(response.statusCode==500) throw Exception(msg);
 
     return  HttpResponse(status: st, data: msg);// {"status": st, "msg": msg};
     // return null;
@@ -51,7 +52,7 @@ Future<HttpResponse> postData(String api_url, Map data) async{
     print(trace.toString());
     // return null;
     //return {"status": false, "error_msg": };
-    return  HttpResponse(status: false, errorMsg: "Erreur inattendue", isException: true);// {"status": st, "msg": msg};
+    return  HttpResponse(status: false, errorMsg: "Erreur inattendue, Problème de connexion", isException: true);// {"status": st, "msg": msg};
 
   }
 
