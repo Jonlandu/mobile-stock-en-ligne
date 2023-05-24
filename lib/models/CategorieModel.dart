@@ -9,33 +9,29 @@ CategorieModel categorieModelFromJson(String str) => CategorieModel.fromJson(jso
 String categorieModelToJson(CategorieModel data) => json.encode(data.toJson());
 
 class CategorieModel {
-  int id;
-  String designation;
-  String description;
-  DateTime createAt;
-  DateTime updatedAt;
+
+  String? designation;
+  String? description;
+
 
   CategorieModel({
-    required this.id,
-    required this.designation,
-    required this.description,
-    required this.createAt,
-    required this.updatedAt,
+
+    this.designation,
+    this.description,
+
   });
 
-  factory CategorieModel.fromJson(Map<String, dynamic> json) => CategorieModel(
-    id: json["id"],
+  factory CategorieModel.fromJson(Map json) => CategorieModel(
+
     designation: json["designation"],
     description: json["description"],
-    createAt: DateTime.parse(json["create_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
+
     "designation": designation,
     "description": description,
-    "create_at": createAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
+
   };
 }
