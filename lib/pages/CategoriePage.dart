@@ -138,7 +138,6 @@ class _CategoriePageState extends State<CategoriePage> {
   {
     return Text(_txt,textAlign: TextAlign.left,style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,));
   }
-
   Widget _buttoncreerCategorie(){
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
