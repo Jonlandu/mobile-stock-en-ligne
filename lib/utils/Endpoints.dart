@@ -1,4 +1,8 @@
 class Endpoints {
-  static const String authentication = "/api/auth";
-  static const String categorieApi = "/api/categories/create";
+  static const String showArticlesEndpoints = "/api/categories/show";
+  static const String createArticleEndpoints = "/api/categories/create";
+
+  static const String loginEndpoint = "/api/auth/login";
+  static const String registerEndpoint = "/api/auth/register";
+
 }

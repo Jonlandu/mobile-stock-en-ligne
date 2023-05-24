@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:squelette_mobile_parcours/controllers/CategorieController.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
+import '../utils/Routes.dart';
+import '../utils/Requetes.dart';
 
 class CategoriePage extends StatefulWidget {
   const CategoriePage({Key? key}) : super(key: key);
@@ -10,7 +14,12 @@ class CategoriePage extends StatefulWidget {
 
 class _CategoriePageState extends State<CategoriePage> {
   Color couleurFont = Colors.black;
-   var txts = ["Designation","Description"];
+   var txts = ["Designation","Description","En appuyant sur creer, vous validez la creation d'une categorie"];
+  bool isVisible = false;
+  var formkey = GlobalKey<FormState>();
+  var txtDesignation = TextEditingController();
+  var txtDescription = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: _appBar(),
@@ -21,35 +30,57 @@ class _CategoriePageState extends State<CategoriePage> {
   AppBar _appBar() {
     return AppBar(
       leading: IconButton(onPressed: (){},icon: Icon(Icons.arrow_back, color: Colors.black,),),
-      title: Text("Créer une categorie", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 18),),
-      backgroundColor: Colors.transparent, elevation: 0,
+      title: Text("Creation categorie", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 18),),
+      backgroundColor: Colors.white70, elevation: 0,
       actions: [
       ],
     );
   }
   Widget _body(){
-    return Container(
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      child : Stack( children : [
-      SingleChildScrollView(child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 15,),
-          _texts(txts[0]),
-          SizedBox(height: 10,),
-          _champDesignation(),
-          SizedBox(height: 10,),
-          _texts(txts[1]),
-          SizedBox(height: 10,),
-          _champDescription(),
-          SizedBox(height: 25,),
-          _validatenwidget(),
-        ],
-      ))
-        ]
-      ));
+    return Stack(
+      children: [
+        Container(
+          child: SingleChildScrollView(
+            child: Container(
+              child: Form(
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 10,
+                    ),
+                    SizedBox(height: 10,),
+                    // _texts(txts[0]),
+                    SizedBox(height: 10,),
+                    _champDesignation(),
+                    SizedBox(height: 10,),
+                     // _texts(txts[1]),
+                    SizedBox(height: 10,),
+                    _champDescription(),
+                    SizedBox(height: 25,),
+                    _buttoncreerCategorie(),
+                    SizedBox(
+                      height: 100,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                            child: Container(
+                              height: 410,
+                            )),
+                        Container(
+                          height: 120,
+                          child: Image.asset("assets/orange.jpg"),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        )
+      ],);
   }
 
   Widget _champDesignation(){
@@ -62,6 +93,9 @@ class _CategoriePageState extends State<CategoriePage> {
           borderRadius: BorderRadius.circular(29),
           color: GlobalColors.greyChamp),
       child: TextFormField(
+        controller: txtDesignation,
+        validator: (val) =>
+        val!.isEmpty ? "Champ obligatoire" : null,
         decoration: InputDecoration(
           icon: Icon(
             Icons.edit,
@@ -85,6 +119,9 @@ class _CategoriePageState extends State<CategoriePage> {
       child: TextFormField(
         maxLines: null,
         maxLength: 1000,
+        controller: txtDescription,
+        validator: (val) =>
+        val!.isEmpty? "champ obligatoire" : null,
         decoration: InputDecoration(
           icon: Icon(
             Icons.description,
@@ -96,18 +133,61 @@ class _CategoriePageState extends State<CategoriePage> {
       ),
     );
   }
-  OutlineInputBorder _outlineborder(MaterialColor _color){
-    return OutlineInputBorder(borderRadius : BorderRadius.circular(15), borderSide: BorderSide(width: 2, color: _color));
-  }
+
   Text _texts(_txt)
   {
     return Text(_txt,textAlign: TextAlign.left,style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,));
   }
-  Widget _validatenwidget(){
-    return Container(width: 400, child: ElevatedButton(onPressed: (){
-      setState(() { // reinitialiser les parametres pour un changement
-      });
-    }, child: Text('creer'),style: ElevatedButton.styleFrom(backgroundColor: Colors.orange,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),));
+
+  Widget _buttoncreerCategorie(){
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      padding:
+      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      width: 350,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(29),
+          color: GlobalColors.orange),
+      height: 50,
+      child: Builder(
+          builder: (ctx) {
+            return TextButton(
+              onPressed: () => _validerFormulaire(ctx),
+              child: Text(
+                "Creer",
+                style:
+                TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            );
+          }
+      ),
+    );
+  }
+  void _validerFormulaire(BuildContext ctx) async{
+    setState(() {});
+    var controller = context.read<CategorieCtrl>();
+    Map dataForCategorie = {
+      "designation": txtDesignation.text,
+      "description": txtDescription.text,
+    };
+    print(dataForCategorie);
+
+    var response = await controller.categorie_data_create(dataForCategorie);
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {});
+     print(response.status);
+    if (response.status) {
+      await Future.delayed(Duration(seconds: 2));
+      Navigator.pushReplacementNamed(context, Routes.CategorieRoute);
+    } else {
+      var msg =
+      response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");
+      print("mqg=====!!! $msg");
+      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 5),
+          content: Text('$msg')));
+    }
   }
 }
 
