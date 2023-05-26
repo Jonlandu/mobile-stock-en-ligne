@@ -11,4 +11,5 @@ class Constantes {
   static const String DefaultFistName="jose";
 
   static const String DefaultToken = "33|O0iozcbMWaHAWxJTbWc7yfs00sNWHyszyUs2WWw3";
+  static const List<String> DefaultTokens = ['33|O0iozcbMWaHAWxJTbWc7yfs00sNWHyszyUs2WWw3','37|Yz1dEenPr3jzKE4a6EX98YlPAUudeMOPOQwEfIep'];
 }

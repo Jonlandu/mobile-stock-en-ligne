@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 
 import '../pages/CategoriePage.dart';
 
@@ -28,6 +29,8 @@ class RoutesManager {
 
       case Routes.CategorieRoute:
       return MaterialPageRoute(builder: (_) => CategoriePage());
+      case Routes.ArticlesRoute:
+        return MaterialPageRoute(builder: (_) => ArticlePage());
         default:
         return MaterialPageRoute(builder: (_) => CategoriePage());
     }

@@ -14,7 +14,7 @@ class CategorieCtrl with ChangeNotifier {
   CategorieCtrl({this.stockage});
 
   Future<HttpResponse> categorie_data_create(Map data) async{
-    var url="${Endpoints.createArticleEndpoints}";
+    var url="${Endpoints.createCategorieEndpoints}";
     HttpResponse response = await postData(url, data);
     if(response.status){
       categorie = CategorieModel.fromJson(response.data?['categorie'] ?? {});
@@ -29,7 +29,7 @@ class CategorieCtrl with ChangeNotifier {
   }
   void recuperer_data_categorie() async{
     var token=stockage?.read(StockageKeys.tokenkey) ;
-    var url = "${Endpoints.showArticlesEndpoints}";
+    var url = "${Endpoints.showCategoriesEndpoints}";
     loading = true;
     notifyListeners();
     var response = await getData(url, token: token);
@@ -44,9 +44,6 @@ class CategorieCtrl with ChangeNotifier {
 }
 void main(){
   var c = CategorieCtrl();
-  var map = {
-    'designation' : 'vieux',
-    'description' : 'le medicament pour les plus de 60 ans'
-  };
+
   c.recuperer_data_categorie();
 }
