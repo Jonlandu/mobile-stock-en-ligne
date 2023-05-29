@@ -26,8 +26,8 @@ class RoutesManager {
       case Routes.RegisterRoute:
         return MaterialPageRoute(builder: (_) => RegisterPage());
 
-      case Routes.CategorieRoute:
-      return MaterialPageRoute(builder: (_) => CategoriePage());
+      case Routes.CategorieRoute :
+        return MaterialPageRoute(builder: (_) => CategoriePage());
         default:
         return MaterialPageRoute(builder: (_) => CategoriePage());
     }
