@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:snippet_coder_utils/FormHelper.dart';
-import 'dart:convert';
+import 'package:squelette_mobile_parcours/utils/Routes.dart';
+import '../controllers/ArticleController.dart';
+import 'package:squelette_mobile_parcours/controllers/CategorieController.dart';
 import '../utils/GlobalColors.dart';
+import '../../widget/ChargementWidget.dart';
+
 class ArticlePage extends StatefulWidget {
   const ArticlePage({Key? key}) : super(key: key);
 
@@ -11,19 +14,23 @@ class ArticlePage extends StatefulWidget {
 }
 
 class _ArticlePageState extends State<ArticlePage> {
+
   void initState() {
     super.initState();
-    this.countries.add({"id":1, "label": "josue"});
-    this.countries.add({"id":2, "label": "mwembo"});
-
+    //chargement des donnees
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      var categorieCtrl = context.read<CategorieCtrl>();
+      categorieCtrl.recuperer_data_categorie();
+    });
   }
-
   Color couleurFont = Colors.black;
   var _value = "-1";
-  List<dynamic> countries = ['item1', 'item2', 'item3', 'item5', 'item6'];
   bool isVisible = false;
-  var txtDesignation = TextEditingController();
-  var txtDescription = TextEditingController();
+  var txtnom_article = TextEditingController();
+  var txt_description = TextEditingController();
+  var txtunite = TextEditingController();
+  var txtstockminimal = TextEditingController();
+  var txtstockinitial = TextEditingController();
   var txtschamps = [
     'veuillez selectionner categorie',
     'veuillez selectionner entrepot'
@@ -36,61 +43,68 @@ class _ArticlePageState extends State<ArticlePage> {
       body: _body(),
     );
   }
-  Widget _selectionnerCategorie(){
+
+  Widget _selectionnerCategorie() {
+    var catCtrl = context.watch<CategorieCtrl>();
+
+    print('taille des donnees disponibles :  ${catCtrl.categoriesList.length}');
+
+    var renduList = catCtrl.categoriesList.map((categorie) {
+      return DropdownMenuItem(
+        child: Text("${categorie.designation}", style: TextStyle(fontWeight: FontWeight.bold)),
+        value:  "${categorie.id}",
+      );
+    }).toList();
+
     return Center(
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 2),
         child: DropdownButtonFormField(
           decoration: InputDecoration(
-              focusedBorder: _outlineborder(Colors.grey) ,
-              focusColor: GlobalColors.greyChamp,
-              border: _outlineborder(Colors.grey),
-              ),
-          value: _value,
-          onChanged: (v){},
-          items: [
-            DropdownMenuItem(child: Text("select categorie",style: TextStyle(fontWeight: FontWeight.bold)),value: "-1",),
-            DropdownMenuItem(child: Text("kinshasa",style: TextStyle(fontWeight: FontWeight.bold)),value: "1",),
-            DropdownMenuItem(child: Text("paris",style: TextStyle(fontWeight: FontWeight.bold)),value: "2",),
-            DropdownMenuItem(child: Text("marseille",style: TextStyle(fontWeight: FontWeight.bold)),value: "3",),
-            DropdownMenuItem(child: Text("bordeaux",style: TextStyle(fontWeight: FontWeight.bold)),value: "4",),
-          ],
-        ),
-      ),
-    );
-  }
-  Widget _selectionnerentrepot(){
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 2),
-        child: DropdownButtonFormField(
-          decoration: InputDecoration(
-            focusedBorder: _outlineborder(Colors.grey) ,
+            focusedBorder: _outlineborder(Colors.grey),
             focusColor: GlobalColors.greyChamp,
             border: _outlineborder(Colors.grey),
           ),
           value: _value,
-          onChanged: (v){},
+          onChanged: (value) {
+            setState(() {
+              _value = value.toString();
+            });
+          },
           items: [
-            DropdownMenuItem(child: Text("select entrepot",style: TextStyle(fontWeight: FontWeight.bold)),value: "-1",),
-            DropdownMenuItem(child: Text("kintambo",style: TextStyle(fontWeight: FontWeight.bold)),value: "1",),
-            DropdownMenuItem(child: Text("ndjili",style: TextStyle(fontWeight: FontWeight.bold)),value: "2",),
-            DropdownMenuItem(child: Text("masina",style: TextStyle(fontWeight: FontWeight.bold)),value: "3",),
-            DropdownMenuItem(child: Text("lemba",style: TextStyle(fontWeight: FontWeight.bold)),value: "4",),
-          ],
+            DropdownMenuItem(
+              child: Text("select categorie",
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              value: "-1",
+            ),
+            ...renduList
+         ]
+          ,
         ),
       ),
     );
   }
-  OutlineInputBorder _outlineborder(MaterialColor _color){
-    return OutlineInputBorder(borderRadius: BorderRadius.circular(29),borderSide: BorderSide(width: 2, color: _color));
+
+  OutlineInputBorder _outlineborder(MaterialColor _color) {
+    return OutlineInputBorder(
+        borderRadius: BorderRadius.circular(29),
+        borderSide: BorderSide(width: 2, color: _color));
   }
+
   AppBar _appBar() {
     return AppBar(
       leading: IconButton(
-        onPressed: () {}, icon: Icon(Icons.arrow_back, color: Colors.black,),),
-      title: Text("Creation article", style: TextStyle(
-          color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),),
+        onPressed: () {},
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.black,
+        ),
+      ),
+      title: Text(
+        "Creation article",
+        style: TextStyle(
+            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+      ),
       backgroundColor: Colors.white70,
       elevation: 0,
       actions: [
@@ -110,7 +124,9 @@ class _ArticlePageState extends State<ArticlePage> {
               child: Form(
                 child: Column(
                   children: [
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     Container(
                       width: double.infinity,
                       height: 120,
@@ -123,45 +139,59 @@ class _ArticlePageState extends State<ArticlePage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     _champNomarticle(),
-                    SizedBox(height: 3,),
+                    SizedBox(
+                      height: 3,
+                    ),
                     _champDescription(),
-                    SizedBox(height: 3,),
+                    SizedBox(
+                      height: 3,
+                    ),
                     _champUnite(),
-                    SizedBox(height: 3,),
+                    SizedBox(
+                      height: 3,
+                    ),
                     _champStock(),
-                    SizedBox(height: 3,),
+                    SizedBox(
+                      height: 3,
+                    ),
                     _champStockinitial(),
-                    SizedBox(height: 3,),
+                    SizedBox(
+                      height: 3,
+                    ),
                     _selectionnerCategorie(),
-                    SizedBox(height: 3,),
-                    _selectionnerentrepot(),
-                    SizedBox(height: 3,),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
                     _buttoncreerArticle(),
                   ],
                 ),
-
               ),
             ),
           ),
-        )
-      ],);
+        ),
+        ChargementWidget(isVisible)
+      ],
+    );
   }
 
   Widget _champNomarticle() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      padding:
-      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: 350,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(29),
           color: GlobalColors.greyChamp),
       child: TextFormField(
-        // controller: txtDesignation,
-        validator: (val) =>
-        val!.isEmpty ? "Champ obligatoire" : null,
+        controller: txtnom_article,
+        validator: (val) => val!.isEmpty ? "Champ obligatoire" : null,
         decoration: InputDecoration(
           icon: Icon(
             Icons.edit,
@@ -177,8 +207,7 @@ class _ArticlePageState extends State<ArticlePage> {
   Widget _champDescription() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      padding:
-      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: 350,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(29),
@@ -186,9 +215,8 @@ class _ArticlePageState extends State<ArticlePage> {
       child: TextFormField(
         maxLines: null,
         maxLength: 1000,
-        controller: txtDescription,
-        validator: (val) =>
-        val!.isEmpty ? "champ obligatoire" : null,
+        controller: txt_description,
+        validator: (val) => val!.isEmpty ? "champ obligatoire" : null,
         decoration: InputDecoration(
           icon: Icon(
             Icons.description,
@@ -204,16 +232,14 @@ class _ArticlePageState extends State<ArticlePage> {
   Widget _champUnite() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      padding:
-      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: 350,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(29),
           color: GlobalColors.greyChamp),
       child: TextFormField(
-        // controller: txtDesignation,
-        validator: (val) =>
-        val!.isEmpty ? "Champ obligatoire" : null,
+         controller: txtunite,
+        validator: (val) => val!.isEmpty ? "Champ obligatoire" : null,
         decoration: InputDecoration(
           icon: Icon(
             Icons.edit,
@@ -229,16 +255,14 @@ class _ArticlePageState extends State<ArticlePage> {
   Widget _champStock() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      padding:
-      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: 350,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(29),
           color: GlobalColors.greyChamp),
       child: TextFormField(
-        // controller: txtDesignation,
-        validator: (val) =>
-        val!.isEmpty ? "Champ obligatoire" : null,
+         controller: txtstockminimal,
+        validator: (val) => val!.isEmpty ? "Champ obligatoire" : null,
         decoration: InputDecoration(
           icon: Icon(
             Icons.edit,
@@ -254,16 +278,14 @@ class _ArticlePageState extends State<ArticlePage> {
   Widget _champStockinitial() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      padding:
-      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: 350,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(29),
           color: GlobalColors.greyChamp),
       child: TextFormField(
-        // controller: txtDesignation,
-        validator: (val) =>
-        val!.isEmpty ? "Champ obligatoire" : null,
+         controller: txtstockinitial,
+        validator: (val) => val!.isEmpty ? "Champ obligatoire" : null,
         decoration: InputDecoration(
           icon: Icon(
             Icons.edit,
@@ -276,33 +298,64 @@ class _ArticlePageState extends State<ArticlePage> {
     );
   }
 
-
   Widget _buttoncreerArticle() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      padding:
-      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: 350,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(29),
-          color: GlobalColors.orange),
+          borderRadius: BorderRadius.circular(29), color: GlobalColors.orange),
       height: 50,
-      child: Builder(
-          builder: (ctx) {
-            return TextButton(
-              onPressed: () {}, // => _validerFormulaire(ctx),
-              child: Text(
-                "Creer",
-                style:
-                TextStyle(color: Colors.white, fontSize: 20),
-              ),
-            );
-          }
-      ),
+      child: Builder(builder: (ctx) {
+        return TextButton(
+          onPressed: () => _validerFormulaire(ctx),
+          child: Text(
+            "Creer categorie",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+        );
+      }),
     );
   }
 
+  void _validerFormulaire(BuildContext ctx) async{
+    FocusScope.of(context).requestFocus(new FocusNode());
+    setState(() {});
+    isVisible = true;
+    var controller = context.read<ArticleCtrl>();
+    String nom_article = txtnom_article.text;
+    String description_article = txt_description.text;
+    String unite = txtunite.text;
+    String stock_minimal = txtstockminimal.text;
+    String stock_initial = txtstockinitial.text;
+    String id = _value;
+    Map dataForArticle = {
+      "nom_article": nom_article,
+      "description_article": description_article,
+      "unite": unite,
+      "stock_minimal": stock_minimal,
+      "stock_initial": stock_initial,
+      "categorie_id": id
+    };
 
+    print("la valeur est : ${_value}");
 
+    var response = await controller.article_data_create(dataForArticle);
+    await Future.delayed(Duration(seconds: 2));
+    setState(() {});
+    print(response.status);
+    if (response.status) {
+      await Future.delayed(Duration(seconds: 2));
+      Navigator.pop(context);
+    } else {
+      var msg =
+      response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");
+      print("mqg=====!!! $msg");
+      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 5),
+          content: Text('$msg')));
+    }
+    isVisible = false;
+  }
 }
-
