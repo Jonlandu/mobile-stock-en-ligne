@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/controllers/CategorieController.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
+import 'package:squelette_mobile_parcours/widget/ChargementWidget.dart';
 import '../utils/Routes.dart';
 import '../utils/Requetes.dart';
 
@@ -75,7 +76,9 @@ class _CategoriePageState extends State<CategoriePage> {
               ),
             ),
           ),
-        )
+        ),
+
+        ChargementWidget(isVisible),
       ],);
   }
 
@@ -155,7 +158,9 @@ class _CategoriePageState extends State<CategoriePage> {
     );
   }
   void _validerFormulaire(BuildContext ctx) async{
+    FocusScope.of(context).requestFocus(new FocusNode());
     setState(() {});
+    isVisible = true;
     var controller = context.read<CategorieCtrl>();
     int a = 1;
     Map dataForCategorie = {
@@ -171,7 +176,7 @@ class _CategoriePageState extends State<CategoriePage> {
      print(response.status);
     if (response.status) {
       await Future.delayed(Duration(seconds: 2));
-      Navigator.pushReplacementNamed(context, Routes.CategorieRoute);
+     // Navigator.pushReplacementNamed(context, Routes.CategorieRoute);
     } else {
       var msg =
       response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");
@@ -181,6 +186,7 @@ class _CategoriePageState extends State<CategoriePage> {
           duration: const Duration(seconds: 5),
           content: Text('$msg')));
     }
+    isVisible = false;
   }
 }
 
