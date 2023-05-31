@@ -11,25 +11,31 @@ class HttpResponse {
 }
 
 Future<dynamic> getData(String url_api, {String? token}) async {
-  try {
-    var url = Uri.parse("${Constantes.BASE_URLS}$url_api");
-    var reponse = await http.get(url, headers: {
-      "Authorization": "Bearer ${token ?? Constantes.DefaultToken}"
-    }); //.timeout(Duration(seconds: 5));
-    print(reponse.runtimeType);
-    print(reponse.body.runtimeType);
-    print(reponse.body);
-    print(reponse.statusCode);
-    if (reponse.statusCode == 200) {
-      return json.decode(reponse.body);
+  //.timeout(Duration(seconds: 5));
+  var taille = Constantes.DefaultTokens.length;
+  print(taille);
+    try {
+      var url = Uri.parse("${Constantes.BASE_URLS}$url_api");
+      for(var key in Constantes.DefaultTokens){
+        var reponse = await http.get(url, headers: {
+          "Authorization": "Bearer ${token ?? key}"
+        });
+       // print(reponse.runtimeType);
+       // print(reponse.body.runtimeType);
+        print(reponse.body);
+       // print(reponse.statusCode);
+       // if (reponse.statusCode == 200) {
+         // return json.decode(reponse.body);
+        // }
+      }
+     //  return null;
+    } catch (e, trace) {
+      print(e.toString());
+      print(trace.toString());
+      return null;
     }
-    return null;
-  } catch (e, trace) {
-    print(e.toString());
-    print(trace.toString());
-    return null;
   }
-}
+
 Future<HttpResponse> postData(String api_url, Map data) async{
   try{
     var url=Uri.parse("${Constantes.BASE_URLS}$api_url");

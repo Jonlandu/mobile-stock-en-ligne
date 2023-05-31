@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 
-import '../pages/CategoriePage.dart';
+import '../pages/CreerCategoriePage.dart';
 
 import 'package:squelette_mobile_parcours/pages/Auth/LoginPage.dart';
 import 'package:squelette_mobile_parcours/pages/Auth/RegisterPage.dart';
@@ -25,9 +26,11 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_) => LoginPage());
       case Routes.RegisterRoute:
         return MaterialPageRoute(builder: (_) => RegisterPage());
+      case Routes.CategorieRoute:
+      return MaterialPageRoute(builder: (_) => CategoriePage());
+      case Routes.ArticlesRoute:
+        return MaterialPageRoute(builder: (_) => ArticlePage());
 
-      case Routes.CategorieRoute :
-        return MaterialPageRoute(builder: (_) => CategoriePage());
         default:
         return MaterialPageRoute(builder: (_) => CategoriePage());
     }

@@ -14,9 +14,7 @@ class CategoriePage extends StatefulWidget {
 
 class _CategoriePageState extends State<CategoriePage> {
   Color couleurFont = Colors.black;
-   var txts = ["Designation","Description","En appuyant sur creer, vous validez la creation d'une categorie"];
   bool isVisible = false;
-  var formkey = GlobalKey<FormState>();
   var txtDesignation = TextEditingController();
   var txtDescription = TextEditingController();
 
@@ -50,11 +48,9 @@ class _CategoriePageState extends State<CategoriePage> {
                       height: 10,
                     ),
                     SizedBox(height: 10,),
-                    // _texts(txts[0]),
                     SizedBox(height: 10,),
                     _champDesignation(),
                     SizedBox(height: 10,),
-                     // _texts(txts[1]),
                     SizedBox(height: 10,),
                     _champDescription(),
                     SizedBox(height: 25,),
@@ -134,10 +130,6 @@ class _CategoriePageState extends State<CategoriePage> {
     );
   }
 
-  Text _texts(_txt)
-  {
-    return Text(_txt,textAlign: TextAlign.left,style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,));
-  }
   Widget _buttoncreerCategorie(){
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -165,9 +157,11 @@ class _CategoriePageState extends State<CategoriePage> {
   void _validerFormulaire(BuildContext ctx) async{
     setState(() {});
     var controller = context.read<CategorieCtrl>();
+    int a = 1;
     Map dataForCategorie = {
       "designation": txtDesignation.text,
       "description": txtDescription.text,
+      "entrepot_id": a
     };
     print(dataForCategorie);
 
