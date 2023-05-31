@@ -7,20 +7,26 @@ import '../utils/StockageKeys.dart';
 import '../utils/Requetes.dart';
 
 
-class CategorieCtrl with ChangeNotifier {
-  CategorieModel? categorie;
+  class CategorieCtrl with ChangeNotifier {
+  // CategorieModel? categorie;
   GetStorage? stockage;
   bool? loading = false;
+  List<CategorieModel> categoriesList = [];
   CategorieCtrl({this.stockage});
 
   Future<HttpResponse> categorie_data_create(Map data) async{
     var url="${Endpoints.createCategorieEndpoints}";
-    HttpResponse response = await postData(url, data);
+    var _token=stockage?.read(StockageKeys.tokenkey);
+    HttpResponse response = await postData(url, data, token: _token);
+    //return response;
+
     if(response.status){
-      categorie = CategorieModel.fromJson(response.data?['categorie'] ?? {});
-      stockage?.write("categorie", response.data?["categorie"] ?? {});
-      stockage?.write("token", response.data?["token"]?? "");
-      notifyListeners();
+     var categorie = CategorieModel.fromJson(response.data?['categorie'] ?? {});
+     categoriesList.add(categorie);
+     print("reponse brute : ${response.data}");
+     print(" la taille :  ${categoriesList.length}");
+
+     notifyListeners();
     }
     print(response.data);
     print(response.status);
@@ -28,15 +34,15 @@ class CategorieCtrl with ChangeNotifier {
     return response;
   }
   void recuperer_data_categorie() async{
-    var token=stockage?.read(StockageKeys.tokenkey) ;
     var url = "${Endpoints.showCategoriesEndpoints}";
     loading = true;
     notifyListeners();
-    var response = await getData(url, token: token);
+    var response = await getData(url,/* token: token*/);
     if(response!=null){
-      categorie = CategorieModel.fromJson(response['categorie'] ?? {});
+      List<CategorieModel> DataCategorie = response.map<CategorieModel>((e) => CategorieModel.fromJson(e)).toList();
+      categoriesList = DataCategorie;
       notifyListeners();
-      print(categorie);
+     print(categoriesList[0]);
     }
     loading = false;
     notifyListeners();
@@ -44,6 +50,10 @@ class CategorieCtrl with ChangeNotifier {
 }
 void main(){
   var c = CategorieCtrl();
-
+  Map  data = {
+    'designation' : 'enfeeeeee',
+    'description' : 'est un produit pour les enfants ',
+    'entrepot_id' : 1
+  };
   c.recuperer_data_categorie();
 }
