@@ -15,23 +15,27 @@ class HttpResponse{
 
 Future<dynamic> getData(String url_api) async{
 
+Future<dynamic> getData(String url_api, {String? token}) async {
   try {
-    var url = Uri.parse(url_api);
-    var response = await http.get(url);
-    print(response.runtimeType); // Les types de données
-    print(response.body.runtimeType); // Les types de données
-    print(response.body); // Les resultats de la reponse
+    var url = Uri.parse("${Constantes.BASE_URL}$url_api");
+    print("url===== $url");
+    var _tkn = token ?? Constantes.DefaultToken;
+    var response = await http.get(url, headers: {
+      "Content-Type": "application/json",
+      "Authorization": "Bearer $_tkn"
+    });
     print(response.statusCode); // contient le code de http
-    if(response.statusCode==200){
-      return json.decode(response.body);
+    if (response.statusCode == 200) {
+      var rep = json.decode(response.body);
+      print("****** $rep");
+      return rep;
     }
     return null;
-  }catch(e, trace){
+  } catch (e, trace) {
     print(e.toString());
     print(trace.toString());
     return null;
   }
-
 }
 
 Future<HttpResponse> postData(String api_url, Map data) async{
