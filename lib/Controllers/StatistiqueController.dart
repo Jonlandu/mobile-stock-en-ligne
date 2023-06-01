@@ -30,4 +30,19 @@ StatistiqueController({this.stockage});
 
 
   }
+Future<Map?> compteCategorie(int entrepot_id) async{
+
+  var url="${Endpoints.compteCategorie}$entrepot_id";
+  // lecture token stocke
+  usertoken=stockage?.read<String?>(StockageKeys.userToken);
+  Map? response = await getData(url, token:usertoken);
+  if(response!=null){
+    response?["data"];
+    notifyListeners();
+  }
+  print(response);
+  return response;
+
+
+}
 }

@@ -15,6 +15,7 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   bool isVisible = false;
   int _nbreArticle=0;
+  int _nbreCategorie=0;
 
   void _compteArticle(BuildContext ctx) async {
     isVisible = true;
@@ -30,6 +31,20 @@ class _DashboardPageState extends State<DashboardPage> {
     print(res);
 
   }
+  void _compteCategorie(BuildContext ctx) async {
+    isVisible = true;
+
+    setState(() {});
+
+    var ctrl = context.read<StatistiqueController>();
+
+    var res = await ctrl.compteCategorie(1);
+    _nbreCategorie=res?['data'];
+    isVisible = false;
+    setState(() {});
+    print(res);
+
+  }
 
 
   @override
@@ -38,6 +53,7 @@ class _DashboardPageState extends State<DashboardPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
         _compteArticle(context);
+        _compteCategorie(context);
     });
   }
 
@@ -119,7 +135,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           Container(
                             width: 40,
                           ),
-                          _nombreEmplacement(),
+
                         ],
                       ),
                     ],
@@ -193,7 +209,7 @@ class _DashboardPageState extends State<DashboardPage> {
             fontSize: 15,
           ),),
           SizedBox(height: 10,),
-          Text("12",style: TextStyle(
+          Text("$_nbreCategorie",style: TextStyle(
               fontSize: 27,
               fontWeight: FontWeight.bold
           ),),
@@ -225,7 +241,7 @@ class _DashboardPageState extends State<DashboardPage> {
             fontSize: 15,
           ),),
           SizedBox(height: 10,),
-          Text("3",style: TextStyle(
+          Text("0",style: TextStyle(
               fontSize: 27,
               fontWeight: FontWeight.bold
           ),),

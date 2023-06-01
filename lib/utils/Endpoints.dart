@@ -3,4 +3,5 @@ class Endpoints {
   static const String registerEndpoint = "/api/auth/register";
 
   static const String compteArticle = "/api/compteArticle/";
+  static const String compteCategorie = "/api/compteCategorie/";
 }
