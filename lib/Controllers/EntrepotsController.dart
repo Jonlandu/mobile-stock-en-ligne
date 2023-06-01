@@ -18,7 +18,7 @@ class EntrepotCtrl with ChangeNotifier {
 
     notifyListeners();
 
-    var reponse = await getData(url);
+    var reponse = await getData(url, token: token);
     if(reponse != null){
       List<EntrepotModele> tempo = reponse.map<EntrepotModele>((e) => EntrepotModele.fromJson(e)).toList();
       entrepots = tempo;
@@ -29,7 +29,8 @@ class EntrepotCtrl with ChangeNotifier {
 
   Future<bool> envoieDataEntrepot(Map data) async{
     var url = "${Endpoints.entrepotEndpoint}";
-    var reponse = await postData(url, data);
+    String? token=stockage?.read(StockageKeys.userToken);
+    var reponse = await postData(url, data, token: token);
     if(reponse.status){
       var tempo = EntrepotModele.fromJson(reponse.data?["entrepot"]);
       entrepots.add(tempo);
