@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:squelette_mobile_parcours/Controllers/StatistiqueController.dart';
 import 'package:squelette_mobile_parcours/utils/StockageKeys.dart';
 import '../Controllers/UserController.dart';
 import '../utils/RoutesManager.dart';
@@ -11,15 +12,16 @@ class MonApplication extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var user=box.read<Map>(StockageKeys.user);
-    var usertoken=box.read<Map>(StockageKeys.userToken);
+    var usertoken=box.read<String?>(StockageKeys.userToken);
     return MultiProvider(
       providers:[
-        ChangeNotifierProvider(create: (_)=> UserController(stockage: box))
+        ChangeNotifierProvider(create: (_)=> UserController(stockage: box)),
+        ChangeNotifierProvider(create: (_)=> StatistiqueController(stockage: box))
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RoutesManager.route,
-        initialRoute: Routes.LoadingRoutes,
+        initialRoute: Routes.DashboardRoute,
       ),
     );
   }
