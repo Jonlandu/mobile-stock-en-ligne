@@ -66,6 +66,9 @@ class EntrepotPageState extends State<EntrepotPage> {
       backgroundColor: Colors.white,
       actions: [
         IconButton(onPressed: (){}, icon: Icon(Icons.person_3, color: Colors.black, size: 30),),
+        IconButton(onPressed: (){
+          Navigator.pushNamed(context, Routes.MovementItemsRoute);
+        }, icon: Icon(Icons.add, color: Colors.black, size: 30)),
         SizedBox(width: 20)
       ],
     );
@@ -76,7 +79,7 @@ class EntrepotPageState extends State<EntrepotPage> {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text( "Bienvenue", textAlign: TextAlign.start,
+        child: Text( "Entrepôts", textAlign: TextAlign.start,
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 25),
         ),
       ),
