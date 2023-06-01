@@ -9,7 +9,7 @@ import '../utils/Requetes.dart';
 
 
 class ArticleCtrl with ChangeNotifier {
- // CategorieModel? categorie;
+
  GetStorage? stockage;
  bool? loading = false;
  List<ArticleModel> articledataList = [];
@@ -35,7 +35,7 @@ class ArticleCtrl with ChangeNotifier {
   return response;
  }
 
- void recuperer_data_categorie() async{
+ void recuperer_data_articles() async{
   var url = "${Endpoints.showArticlesEndpoints}";
   loading = true;
   notifyListeners();
@@ -46,7 +46,6 @@ class ArticleCtrl with ChangeNotifier {
    articledataList = DataArticle;
 
    notifyListeners();
-   //print(categorie);
    print(DataArticle[0]);
   }
   loading = false;
@@ -64,5 +63,5 @@ void main() {
   'categorie_id'  : 2,
   'entrepot_id'  : 1
  };
- c.article_data_create(data);
+ c.recuperer_data_articles();
 }
