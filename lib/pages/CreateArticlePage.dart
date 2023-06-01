@@ -5,19 +5,14 @@ import '../controllers/ArticleController.dart';
 import 'package:squelette_mobile_parcours/controllers/CategorieController.dart';
 import '../utils/GlobalColors.dart';
 import '../../widget/ChargementWidget.dart';
-
 class ArticlePage extends StatefulWidget {
   const ArticlePage({Key? key}) : super(key: key);
-
   @override
   State<ArticlePage> createState() => _ArticlePageState();
 }
-
 class _ArticlePageState extends State<ArticlePage> {
-
   void initState() {
     super.initState();
-    //chargement des donnees
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var categorieCtrl = context.read<CategorieCtrl>();
       categorieCtrl.recuperer_data_categorie();
@@ -43,24 +38,21 @@ class _ArticlePageState extends State<ArticlePage> {
       body: _body(),
     );
   }
-
   Widget _selectionnerCategorie() {
     var catCtrl = context.watch<CategorieCtrl>();
-
-    print('taille des donnees disponibles :  ${catCtrl.categoriesList.length}');
-
     var renduList = catCtrl.categoriesList.map((categorie) {
       return DropdownMenuItem(
         child: Text("${categorie.designation}", style: TextStyle(fontWeight: FontWeight.bold)),
         value:  "${categorie.id}",
       );
     }).toList();
-
     return Center(
-      child: Padding(
+      child: Container(
         padding: EdgeInsets.symmetric(horizontal: 30, vertical: 2),
         child: DropdownButtonFormField(
           decoration: InputDecoration(
+            filled: true,
+            fillColor: GlobalColors.greyChamp,
             focusedBorder: _outlineborder(Colors.grey),
             focusColor: GlobalColors.greyChamp,
             border: _outlineborder(Colors.grey),
@@ -78,8 +70,7 @@ class _ArticlePageState extends State<ArticlePage> {
               value: "-1",
             ),
             ...renduList
-         ]
-          ,
+         ],
         ),
       ),
     );
@@ -90,7 +81,6 @@ class _ArticlePageState extends State<ArticlePage> {
         borderRadius: BorderRadius.circular(29),
         borderSide: BorderSide(width: 2, color: _color));
   }
-
   AppBar _appBar() {
     return AppBar(
       leading: IconButton(
@@ -114,7 +104,6 @@ class _ArticlePageState extends State<ArticlePage> {
       ],
     );
   }
-
   Widget _body() {
     return Stack(
       children: [
@@ -180,7 +169,6 @@ class _ArticlePageState extends State<ArticlePage> {
       ],
     );
   }
-
   Widget _champNomarticle() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -203,7 +191,6 @@ class _ArticlePageState extends State<ArticlePage> {
       ),
     );
   }
-
   Widget _champDescription() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -337,8 +324,6 @@ class _ArticlePageState extends State<ArticlePage> {
       "stock_initial": stock_initial,
       "categorie_id": id
     };
-
-    print("la valeur est : ${_value}");
 
     var response = await controller.article_data_create(dataForArticle);
     await Future.delayed(Duration(seconds: 2));

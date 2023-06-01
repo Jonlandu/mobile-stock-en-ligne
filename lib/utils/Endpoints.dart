@@ -6,5 +6,5 @@ class Endpoints {
   static const String registerEndpoint = "/api/auth/register";
 
   static const String createArticlesEndpoints = "/api/articles/create";
-  static const String showArticlesEndpoints = "/api/articles/sho";
+  static const String showArticlesEndpoints = "/api/articles/show";
 }
