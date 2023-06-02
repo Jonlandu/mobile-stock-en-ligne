@@ -23,7 +23,7 @@ class MonApplication extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RoutesManager.route,
-        initialRoute: Routes.ArticlesRoute,
+        initialRoute: Routes.LoginRoute,
       ),
     );
   }
