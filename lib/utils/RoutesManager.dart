@@ -5,8 +5,10 @@ import '../pages/CreerCategoriePage.dart';
 
 import 'package:squelette_mobile_parcours/pages/Auth/LoginPage.dart';
 import 'package:squelette_mobile_parcours/pages/Auth/RegisterPage.dart';
+import 'package:squelette_mobile_parcours/pages/Entrepot/EntrepotPages.dart';
 import 'package:squelette_mobile_parcours/pages/LoadingPage.dart';
 
+import '../pages/Entrepot/CreationEntrepotPage.dart';
 import '../pages/TemplatePage.dart';
 
 import 'Routes.dart';
@@ -30,6 +32,11 @@ class RoutesManager {
       return MaterialPageRoute(builder: (_) => CategoriePage());
       case Routes.ArticlesRoute:
         return MaterialPageRoute(builder: (_) => ArticlePage());
+        return MaterialPageRoute(builder: (_)=> RegisterPage());
+      case Routes.EntrepotRoute:
+        return MaterialPageRoute(builder: (_)=> EntrepotPage());
+      case Routes.CreationEntrepotRoute:
+        return MaterialPageRoute(builder: (_)=> CreationEntrepotPage());
 
         default:
         return MaterialPageRoute(builder: (_) => CategoriePage());

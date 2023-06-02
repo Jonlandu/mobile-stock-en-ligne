@@ -7,4 +7,7 @@ class Endpoints {
 
   static const String createArticlesEndpoints = "/api/articles/create";
   static const String showArticlesEndpoints = "/api/articles/show";
+
+  static const String entrepotEndpoint = "/api/entrepots";
+
 }
