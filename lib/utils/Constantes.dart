@@ -1,5 +1,5 @@
 class Constantes {
-  static const String BASE_URL = "http://10.252.252.22:8000";
+  static const String BASE_URL = "http://10.252.252.37:8000";
 
   static const String DefaultToken = "";
   static const String DefaultEmail="evi@gmail.com";

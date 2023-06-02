@@ -5,5 +5,8 @@ class Routes {
   static const String RegisterRoute= "/register";
   static const String DashboardRoute="/dashboard";
   static const String ArticlesCompteRoute="/articlecompteur";
+  static const String EntrepotRoute= "/entrepot";
+  static const String CreationEntrepotRoute= "/creationEntrepot";
+
 
 }

@@ -24,7 +24,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
     var ctrl = context.read<StatistiqueController>();
 
-    var res = await ctrl.compteArticle(1);
+    var res = await ctrl.compteArticle(3);
     _nbreArticle=res?['data'];
     isVisible = false;
     setState(() {});
