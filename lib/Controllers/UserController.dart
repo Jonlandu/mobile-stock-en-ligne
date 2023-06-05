@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:squelette_mobile_parcours/Model/UserModel.dart';
 import 'package:squelette_mobile_parcours/utils/Constantes.dart';
 import 'package:squelette_mobile_parcours/utils/Endpoints.dart';
+import 'package:squelette_mobile_parcours/utils/StockageKeys.dart';
 
 import '../utils/Request.dart';
 
@@ -18,8 +19,8 @@ class UserController with ChangeNotifier{
   if(response.status){
     // if(response!= null/){
       user=UserModel.fromJson(response.data?['user'] ?? {});
-      stockage?.write("user", response.data?["user"] ?? {});
-      stockage?.write("token", response.data?["token"]?? "");
+      stockage?.write(StockageKeys.user, response.data?["user"] ?? {});
+      stockage?.write(StockageKeys.userToken, response.data?["token"]?? "");
       notifyListeners();
     }
   print(response);

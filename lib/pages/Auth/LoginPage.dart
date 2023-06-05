@@ -18,8 +18,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isVisible = false;
   var formkey = GlobalKey<FormState>();
-  var txtEmail = TextEditingController();
-  var txtPassword = TextEditingController();
+  var txtEmail = TextEditingController(text: Constantes.DefaultEmail);
+  var txtPassword = TextEditingController(text: Constantes.DefaultPassword);
   bool viewPassword = false;
 
   @override
@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
     print(res.status);
     if (res.status) {
       await Future.delayed(Duration(seconds: 2));
-      Navigator.pushReplacementNamed(context, Routes.TemplateRoutes);
+      Navigator.pushReplacementNamed(context, Routes.EntrepotRoute);
     } else {
       var msg =
           res.isException == true ? res.errorMsg : (res.data?['message'] ?? "");
@@ -210,4 +210,6 @@ class _LoginPageState extends State<LoginPage> {
     // traitement resultat
     // navigation
   }
+
+
 }
