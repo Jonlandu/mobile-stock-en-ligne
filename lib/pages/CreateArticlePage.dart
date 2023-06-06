@@ -15,7 +15,7 @@ class _ArticlePageState extends State<ArticlePage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var categorieCtrl = context.read<CategorieCtrl>();
-      categorieCtrl.recuperer_data_categorie();
+      categorieCtrl.recupererDataCategorie();
     });
   }
   Color couleurFont = Colors.black;
@@ -325,7 +325,7 @@ class _ArticlePageState extends State<ArticlePage> {
       "categorie_id": id
     };
 
-    var response = await controller.article_data_create(dataForArticle);
+    var response = await controller.articleDataCreate(dataForArticle);
     await Future.delayed(Duration(seconds: 2));
     setState(() {});
     print(response.status);

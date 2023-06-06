@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:squelette_mobile_parcours/models/ArticleModel.dart';
-import '../models/ArticleModel.dart';
+import 'package:squelette_mobile_parcours/Model/ArticleModel.dart';
+import '../Model/ArticleModel.dart';
 import '../utils/Endpoints.dart';
 import '../utils/StockageKeys.dart';
-import '../utils/Requetes.dart';
+import '../utils/Request.dart';
 
 
 class ArticleCtrl with ChangeNotifier {
@@ -15,7 +15,7 @@ class ArticleCtrl with ChangeNotifier {
  List<ArticleModel> articledataList = [];
  ArticleCtrl({this.stockage});
 
- Future<HttpResponse> article_data_create(Map data) async{
+ Future<HttpResponse> articleDataCreate(Map data) async{
   var url="${Endpoints.createArticlesEndpoints}";
   var _token=stockage?.read(StockageKeys.tokenkey);
   HttpResponse response = await postData(url, data, token: _token);
@@ -35,7 +35,7 @@ class ArticleCtrl with ChangeNotifier {
   return response;
  }
 
- void recuperer_data_articles() async{
+ void recupererDataArticles() async{
   var url = "${Endpoints.showArticlesEndpoints}";
   loading = true;
   notifyListeners();
@@ -55,13 +55,13 @@ class ArticleCtrl with ChangeNotifier {
 void main() {
  var c = ArticleCtrl();
  Map data = {
-  'nom_article': 'biscuit',
-  'description_article': 'un biscuit pour enfants',
+  'nom_article': 'chocolat',
+  'description_article': 'un chocolat pour enfant',
   'unite' : 'pc',
   'stock_minimal' : 12,
   'stock_initial' : 10,
   'categorie_id'  : 2,
   'entrepot_id'  : 1
  };
- c.recuperer_data_articles();
+ c.recupererDataArticles();
 }

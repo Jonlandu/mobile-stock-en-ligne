@@ -4,7 +4,7 @@ import 'package:squelette_mobile_parcours/controllers/CategorieController.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
 import 'package:squelette_mobile_parcours/widget/ChargementWidget.dart';
 import '../utils/Routes.dart';
-import '../utils/Requetes.dart';
+import '../utils/Request.dart';
 
 class CategoriePage extends StatefulWidget {
   const CategoriePage({Key? key}) : super(key: key);
@@ -170,7 +170,7 @@ class _CategoriePageState extends State<CategoriePage> {
     };
     print(dataForCategorie);
 
-    var response = await controller.categorie_data_create(dataForCategorie);
+    var response = await controller.categorieDataCreate(dataForCategorie);
     await Future.delayed(Duration(seconds: 2));
     setState(() {});
      print(response.status);

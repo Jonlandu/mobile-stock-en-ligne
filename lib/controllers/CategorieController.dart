@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
-import '../models/CategorieModel.dart';
+import '../Model/CategorieModel.dart';
 import '../utils/Endpoints.dart';
 import '../utils/StockageKeys.dart';
-import '../utils/Requetes.dart';
+import '../utils/Request.dart';
 
 
   class CategorieCtrl with ChangeNotifier {
@@ -14,7 +14,7 @@ import '../utils/Requetes.dart';
   List<CategorieModel> categoriesList = [];
   CategorieCtrl({this.stockage});
 
-  Future<HttpResponse> categorie_data_create(Map data) async{
+  Future<HttpResponse> categorieDataCreate(Map data) async{
     var url="${Endpoints.createCategorieEndpoints}";
     var _token=stockage?.read(StockageKeys.tokenkey);
     HttpResponse response = await postData(url, data, token: _token);
@@ -33,7 +33,7 @@ import '../utils/Requetes.dart';
     print(response);
     return response;
   }
-  void recuperer_data_categorie() async{
+  void recupererDataCategorie() async{
     var url = "${Endpoints.showCategoriesEndpoints}";
     loading = true;
     notifyListeners();
@@ -55,5 +55,5 @@ void main(){
     'description' : 'est un produit pour les enfants ',
     'entrepot_id' : 1
   };
-  c.recuperer_data_categorie();
+  c.recupererDataCategorie();
 }
