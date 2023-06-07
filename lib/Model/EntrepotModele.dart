@@ -9,12 +9,14 @@ EntrepotModele entrepotModeleFromJson(String str) => EntrepotModele.fromJson(jso
 String entrepotModeleToJson(EntrepotModele data) => json.encode(data.toJson());
 
 class EntrepotModele {
+  int? id;
   String? nom;
   int? userId;
   DateTime? createdAt;
   DateTime? updatedAt;
 
   EntrepotModele({
+    this.id,
     this.nom,
     this.userId,
     this.createdAt,
@@ -22,6 +24,7 @@ class EntrepotModele {
   });
 
   factory EntrepotModele.fromJson(Map json) => EntrepotModele(
+    id: json["id"],
     nom: json["nom"],
     userId: json["user_id"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
@@ -29,6 +32,7 @@ class EntrepotModele {
   );
 
   Map<String, dynamic> toJson() => {
+    "id": id,
     "nom": nom,
     "user_id": userId,
     "created_at": createdAt?.toIso8601String(),
