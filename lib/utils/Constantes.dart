@@ -9,7 +9,7 @@ class Constantes {
   static const String DefaultName="jose";
   static const String DefaultFistName="jose";
 
-  static const String DefaultToken = "9|q8E0TmSfSZjSo6GjEmNtQkorcVIAOXTNqLuqjtht";
+  //static const String DefaultToken = "9|q8E0TmSfSZjSo6GjEmNtQkorcVIAOXTNqLuqjtht";
 
 }
 

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:squelette_mobile_parcours/Model/ArticleModel.dart';
 import 'package:squelette_mobile_parcours/pages/Auth/LoginPage.dart';
 import 'package:squelette_mobile_parcours/pages/Auth/RegisterPage.dart';
+import 'package:squelette_mobile_parcours/pages/CreerCategoriePage.dart';
 import 'package:squelette_mobile_parcours/pages/DetailsArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/ListArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/LoadingPage.dart';
-
+import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 import '../pages/CreationMouvementPage.dart';
 import '../pages/Entrepot/CreationEntrepotPage.dart';
 import '../pages/Entrepot/EntrepotPages.dart';
@@ -36,6 +37,10 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_)=> ListArticlePage());
       case Routes.CreationMovementRoute:
         return MaterialPageRoute(builder: (_)=> CreationMouvementPage());
+      case Routes.ArticlesRoute:
+        return MaterialPageRoute(builder: (_)=> ArticlePage());
+      case Routes.CategorieRoute :
+      return MaterialPageRoute(builder: (_)=> CategoriePage());
       case Routes.DetailsArticleRoute:
         var args=r.arguments as Map?;
         var elt ={};
