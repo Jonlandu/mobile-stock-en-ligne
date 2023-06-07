@@ -15,7 +15,7 @@ class ArticleCtrl with ChangeNotifier {
  List<ArticleModel> articledataList = [];
  ArticleCtrl({this.stockage});
 
- Future<HttpResponse> articleDataCreate(Map data) async{
+ Future<HttpResponse> articlesDataCreate(Map data) async{
   var url="${Endpoints.createArticlesEndpoints}";
   var _token=stockage?.read(StockageKeys.tokenkey);
   HttpResponse response = await postData(url, data, token: _token);
@@ -35,7 +35,7 @@ class ArticleCtrl with ChangeNotifier {
   return response;
  }
 
- void recupererDataArticles() async{
+ void recupererDataArticle() async{
   var url = "${Endpoints.showArticlesEndpoints}";
   loading = true;
   notifyListeners();
@@ -63,5 +63,5 @@ void main() {
   'categorie_id'  : 2,
   'entrepot_id'  : 1
  };
- c.recupererDataArticles();
+ c.recupererDataArticle();
 }
