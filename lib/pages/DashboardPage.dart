@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 import "package:squelette_mobile_parcours/Controllers/StatistiqueController.dart";
 import "package:squelette_mobile_parcours/utils/GlobalColors.dart";
+import "package:squelette_mobile_parcours/utils/Routes.dart";
 
 import "../Model/EntrepotModele.dart";
 import "../widget/ChargementWidget.dart";
@@ -27,8 +28,10 @@ class _DashboardPageState extends State<DashboardPage> {
     setState(() {});
 
     var ctrl = context.read<StatistiqueController>();
+    var id_entrepot = _entrepot.id ?? 0; // TODO: change to id entreprot
 
-    var res = await ctrl.compteArticle(3);
+
+    var res = await ctrl.compteArticle(id_entrepot);
     _nbreArticle = res?['data'];
     isVisible = false;
     setState(() {});
@@ -41,7 +44,7 @@ class _DashboardPageState extends State<DashboardPage> {
     setState(() {});
 
     var ctrl = context.read<StatistiqueController>();
-    var id_entrepot = _entrepot.userId ?? 0; // TODO: change to id entreprot
+    var id_entrepot = _entrepot.id ?? 0; // TODO: change to id entreprot
     var res = await ctrl.compteCategorie(id_entrepot);
     _nbreCategorie = res?['data'];
     isVisible = false;
@@ -352,7 +355,7 @@ class _DashboardPageState extends State<DashboardPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Orage Stock Mobile',
+                'Orange Stock Mobile',
                 style: TextStyle(fontSize: 30, color: Colors.white),
               ),
             ],
@@ -360,13 +363,19 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
         ListTile(
             leading: Icon(Icons.production_quantity_limits_rounded),
-            title: Text('Produits')),
+            title: TextButton(onPressed: (){
+              Navigator.pushNamed(context, Routes.ListArticleRoute);
+            }, child: Text('Produits'),),),
         ListTile(
-            leading: Icon(Icons.category_outlined), title: Text('Categories')),
-        ListTile(leading: Icon(Icons.person), title: Text('Collaborateur')),
+            leading: Icon(Icons.category_outlined),
+          title: TextButton(onPressed: (){
+            Navigator.pushNamed(context, Routes.ListCategorieRoute);
+          }, child: Text('Categories'),),),
+        ListTile(leading: Icon(Icons.person),
+            title: Text('Collaborateur')),
         ListTile(
             leading: Icon(Icons.call_to_action_outlined),
-            title: Text('Emplacements')),
+            title: Text('Mouvements')),
       ],
     );
   }
