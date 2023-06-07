@@ -107,7 +107,7 @@ class EntrepotPageState extends State<EntrepotPage> {
                     trailing : Icon(Icons.double_arrow_sharp, color: Colors.white,),
                   ),
                   onPressed: (){
-                    Navigator.pushNamed(context, Routes.TemplateRoutes, arguments: EntrepotConvert.toJson());
+                    Navigator.pushNamed(context, Routes.DashboardRoute, arguments: EntrepotConvert.toJson());
                   },
                 ),
               );
