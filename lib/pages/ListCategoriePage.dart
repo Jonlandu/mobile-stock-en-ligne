@@ -37,7 +37,7 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
               child: FloatingActionButton(
                 backgroundColor: Colors.black,
                 onPressed: () async {
-                  var retoure = await Navigator.pushNamed(context, Routes.ListCategorieRoute);
+                  var retoure = await Navigator.pushNamed(context, Routes.CategorieRoute);
                   if (retoure == true){
                     setState(() {});
                   }
@@ -88,13 +88,18 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
             itemBuilder: (ctx,i) {
               var categorieconvert = categoriectrl.categoriesList[i];
 
-              return ListTile(
-                  leading: Icon(Icons.shopping_cart),
-                  trailing: Icon(Icons.arrow_forward_ios_outlined),
-                  title: Text("${categorieconvert.designation}",
-                    style: TextStyle(color: Colors.black, fontSize: 22),),
-                  subtitle: Text("${categorieconvert.description}",
-                    style: TextStyle(color: Colors.black, fontSize: 16),));
+              return Column(
+
+                children: [
+                  ListTile(
+                      leading: Icon(Icons.shopping_cart),
+                      trailing: Icon(Icons.arrow_forward_ios_outlined),
+                      title: Text("${categorieconvert.designation}",
+                        style: TextStyle(color: Colors.black, fontSize: 22),),
+                      subtitle: Text("${categorieconvert.description}",
+                        style: TextStyle(color: Colors.black, fontSize: 16),)),
+                ],
+              );
             }
         ),]
 
