@@ -14,7 +14,7 @@ import '../utils/Request.dart';
   List<CategorieModel> categoriesList = [];
   CategorieCtrl({this.stockage});
 
-  Future<HttpResponse> categoriDataCreate(Map data) async{
+  Future<HttpResponse> categorieDataCreate(Map data) async{
     var url="${Endpoints.createCategorieEndpoints}";
     var _token=stockage?.read(StockageKeys.tokenkey);
     HttpResponse response = await postData(url, data, token: _token);
@@ -33,7 +33,7 @@ import '../utils/Request.dart';
     print(response);
     return response;
   }
-  void recupereDataCategorie() async{
+  void recupererDataCategorie() async{
     var url = "${Endpoints.showCategoriesEndpoints}";
     loading = true;
     notifyListeners();
@@ -55,5 +55,5 @@ void main(){
     'description' : 'est un produit pour les enfants ',
     'entrepot_id' : 1
   };
-  c.recupereDataCategorie();
+  c.recupererDataCategorie();
 }
