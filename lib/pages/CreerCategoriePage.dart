@@ -170,7 +170,7 @@ class _CategoriePageState extends State<CategoriePage> {
     };
     print(dataForCategorie);
 
-    var response = await controller.categorieDataCreate(dataForCategorie);
+    var response = await controller.categoriDataCreate(dataForCategorie);
     await Future.delayed(Duration(seconds: 2));
     setState(() {});
      print(response.status);
