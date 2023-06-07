@@ -93,7 +93,7 @@ class _DetailsArticlePage extends State<DetailsArticlePage> {
           builder: (ctx) {
             return TextButton(
               onPressed: (){
-                Navigator.pushNamed(context, Routes.TemplateRoutes);
+                Navigator.pushNamed(context, Routes.CreationMovementRoute);
               },
               child: Text(
                 "Operation",
