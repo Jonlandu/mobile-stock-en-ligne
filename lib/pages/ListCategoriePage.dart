@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
-import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
 import 'package:squelette_mobile_parcours/utils/Routes.dart';
 
 class ListCategoriePage extends StatefulWidget {
@@ -18,7 +17,7 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
     //chargement avant l'execution du builder
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var categorieCtrl = context.read<CategorieCtrl>();
-      categorieCtrl.recuperer_data_categorie();
+      categorieCtrl.recupererDataCategorie();
     });
   }
 

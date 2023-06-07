@@ -24,7 +24,7 @@ class _DetailsArticlePage extends State<DetailsArticlePage> {
     //chargement avant l'execution du builder
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var articleCtrl = context.read<ArticleCtrl>();
-      articleCtrl.recuperer_data_articles();
+      articleCtrl.recupererDataArticles();
     });
   }
 
