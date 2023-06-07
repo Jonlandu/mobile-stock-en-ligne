@@ -9,6 +9,11 @@ class Routes {
   static const String ArticlesRoute = "/article";
   static const String EntrepotRoute= "/entrepot";
   static const String CreationEntrepotRoute= "/creationEntrepot";
+  static const String ListArticleRoute= "/listArticle";
+  static const String ListCategorieRoute= "/listCategorie";
+  static const String DetailsArticleRoute= "/DetailsArticle";
+  static const String CreationMovementRoute= "/creationMouvement";
+
 
 
 }

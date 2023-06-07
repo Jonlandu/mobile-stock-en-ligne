@@ -106,7 +106,9 @@ class EntrepotPageState extends State<EntrepotPage> {
                     subtitle : Text("${EntrepotConvert.createdAt}", style: TextStyle(color: Colors.white),),
                     trailing : Icon(Icons.double_arrow_sharp, color: Colors.white,),
                   ),
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushNamed(context, Routes.TemplateRoutes, arguments: EntrepotConvert.toJson());
+                  },
                 ),
               );
             }
