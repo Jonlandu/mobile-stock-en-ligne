@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:squelette_mobile_parcours/Model/EntrepotModele.dart';
+import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
+
+import '../pages/CreerCategoriePage.dart';
+
 import 'package:squelette_mobile_parcours/Model/ArticleModel.dart';
 import 'package:squelette_mobile_parcours/pages/Auth/LoginPage.dart';
 import 'package:squelette_mobile_parcours/pages/Auth/RegisterPage.dart';
@@ -9,6 +14,7 @@ import 'package:squelette_mobile_parcours/pages/ListArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/LoadingPage.dart';
 import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 import '../pages/CreationMouvementPage.dart';
+import '../pages/DashboardPage.dart';
 import '../pages/Entrepot/CreationEntrepotPage.dart';
 import '../pages/Entrepot/EntrepotPages.dart';
 import '../pages/ListCategoriePage.dart';
@@ -28,10 +34,13 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_) => LoginPage());
       case Routes.RegisterRoute:
         return MaterialPageRoute(builder: (_)=> RegisterPage());
+      case Routes.DashboardRoute:
+      var args=r.arguments as Map?;
+
+        return MaterialPageRoute(builder: (_) => DashboardPage(entrepot: EntrepotModele.fromJson(args?? {}) ,));
       case Routes.EntrepotRoute:
         return MaterialPageRoute(builder: (_)=> EntrepotPage());
-      case Routes.DashboardRoute:
-        return MaterialPageRoute(builder: (_)=> DashboardPage());
+
       case Routes.CreationEntrepotRoute:
         return MaterialPageRoute(builder: (_)=> CreationEntrepotPage());
       case Routes.ListCategorieRoute:

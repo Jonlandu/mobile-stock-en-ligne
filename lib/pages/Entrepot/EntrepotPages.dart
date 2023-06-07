@@ -67,6 +67,7 @@ class EntrepotPageState extends State<EntrepotPage> {
       actions: [
         IconButton(onPressed: (){}, icon: Icon(Icons.person_3, color: Colors.black, size: 30),),
         IconButton(onPressed: (){
+          //Navigator.pushNamed(context, Routes.MovementItemsRoute);
           Navigator.pushNamed(context, Routes.CreationMovementRoute);
         }, icon: Icon(Icons.add, color: Colors.black, size: 30)),
         SizedBox(width: 20)
