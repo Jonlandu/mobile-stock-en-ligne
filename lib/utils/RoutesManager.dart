@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:squelette_mobile_parcours/Model/EntrepotModele.dart';
 import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 
 import '../pages/CreerCategoriePage.dart';
@@ -35,7 +36,9 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_) => ArticlePage());
         return MaterialPageRoute(builder: (_)=> RegisterPage());
       case Routes.DashboardRoute:
-        return MaterialPageRoute(builder: (_) => DashboardPage());
+      var args=r.arguments as Map?;
+        
+        return MaterialPageRoute(builder: (_) => DashboardPage(entrepot: EntrepotModele.fromJson(args?? {}) ,));
       case Routes.EntrepotRoute:
         return MaterialPageRoute(builder: (_)=> EntrepotPage());
       case Routes.CreationEntrepotRoute:
