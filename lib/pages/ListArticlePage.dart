@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
-import 'package:squelette_mobile_parcours/pages/DetailsArticlePage.dart';
 import '../Controllers/ArticleController.dart';
-
-import '../utils/GlobalColors.dart';
 import '../utils/Routes.dart';
 
 
@@ -23,7 +19,7 @@ class _ListArticlePage extends State<ListArticlePage> {
     //chargement avant l'execution du builder
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var articleCtrl = context.read<ArticleCtrl>();
-      articleCtrl.recuperer_data_articles();
+      articleCtrl.recupererDataArticles();
     });
   }
 
