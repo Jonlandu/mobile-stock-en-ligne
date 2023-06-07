@@ -60,8 +60,7 @@ void main() {
   'unite' : 'pc',
   'stock_minimal' : 12,
   'stock_initial' : 10,
-  'categorie_id'  : 2,
-  'entrepot_id'  : 1
+  'categorie_id'  : 1,
  };
  c.recupererDataArticles();
 }
