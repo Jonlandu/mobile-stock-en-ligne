@@ -297,7 +297,7 @@ class _ArticlePageState extends State<ArticlePage> {
         return TextButton(
           onPressed: () => _validerFormulaire(ctx),
           child: Text(
-            "Creer categorie",
+            "Creer article",
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
         );

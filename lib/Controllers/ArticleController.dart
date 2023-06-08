@@ -37,9 +37,10 @@ class ArticleCtrl with ChangeNotifier {
 
  void recupererDataArticles() async{
   var url = "${Endpoints.showArticlesEndpoints}";
+  String? token=stockage?.read(StockageKeys.userToken);
   loading = true;
   notifyListeners();
-  var response = await getData(url,/* token: token*/);
+  var response = await getData(url, token: token);
   if(response!=null){
 
    List<ArticleModel> DataArticle = response.map<ArticleModel>((e) => ArticleModel.fromJson(e)).toList();
