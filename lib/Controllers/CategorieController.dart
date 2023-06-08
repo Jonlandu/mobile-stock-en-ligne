@@ -35,9 +35,10 @@ import '../utils/Request.dart';
   }
   void recupererDataCategorie() async{
     var url = "${Endpoints.showCategoriesEndpoints}";
+    String? token=stockage?.read(StockageKeys.userToken);
     loading = true;
     notifyListeners();
-    var response = await getData(url,/* token: token*/);
+    var response = await getData(url, token: token);
     if(response!=null){
       List<CategorieModel> DataCategorie = response.map<CategorieModel>((e) => CategorieModel.fromJson(e)).toList();
       categoriesList = DataCategorie;
