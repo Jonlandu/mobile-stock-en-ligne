@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/utils/Routes.dart';
-import '../controllers/ArticleController.dart';
-import 'package:squelette_mobile_parcours/controllers/CategorieController.dart';
+import '../Controllers/ArticleController.dart';
+import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
 import '../utils/GlobalColors.dart';
 import '../../widget/ChargementWidget.dart';
 class ArticlePage extends StatefulWidget {
@@ -331,7 +331,7 @@ class _ArticlePageState extends State<ArticlePage> {
     print(response.status);
     if (response.status) {
       await Future.delayed(Duration(seconds: 2));
-      Navigator.pop(context);
+      Navigator.pushReplacementNamed(context, Routes.ListArticleRoute);
     } else {
       var msg =
       response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");

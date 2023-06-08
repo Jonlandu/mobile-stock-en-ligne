@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:squelette_mobile_parcours/controllers/CategorieController.dart';
+import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
 import 'package:squelette_mobile_parcours/widget/ChargementWidget.dart';
 import '../utils/Routes.dart';
@@ -176,7 +176,7 @@ class _CategoriePageState extends State<CategoriePage> {
      print(response.status);
     if (response.status) {
       await Future.delayed(Duration(seconds: 2));
-     Navigator.pushReplacementNamed(context, Routes.CategorieRoute);
+     Navigator.pushReplacementNamed(context, Routes.ListCategorieRoute);
     } else {
       var msg =
       response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");

@@ -55,5 +55,5 @@ void main(){
     'description' : 'est un produit pour les enfants ',
     'entrepot_id' : 1
   };
-  c.recupererDataCategorie();
+  c.categorieDataCreate(data);
 }
