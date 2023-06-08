@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/utils/Routes.dart';
-import '../controllers/ArticleController.dart';
+import '../Controllers/ArticleController.dart';
 import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
 import '../utils/GlobalColors.dart';
 import '../../widget/ChargementWidget.dart';
