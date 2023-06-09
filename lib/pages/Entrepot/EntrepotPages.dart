@@ -13,6 +13,7 @@ class EntrepotPage extends StatefulWidget {
 }
 
 class EntrepotPageState extends State<EntrepotPage> {
+  int _currentTabIndex = 0;
 
   @override
   void initState() {
@@ -35,22 +36,8 @@ class EntrepotPageState extends State<EntrepotPage> {
           //SizedBox(height: 20),
           _banner(),
           Expanded(child: _entrepotBloc()),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FloatingActionButton(
-                backgroundColor: Colors.black,
-                onPressed: () async {
-                  var retoure = await Navigator.pushNamed(context, Routes.CreationEntrepotRoute);
-                  if (retoure == true){
-                    setState(() {});
-                  }
-                },
-                child: Icon(Icons.add),
-              ),
-            ),
-          )
+          _ajouterEntrepot(),
+          _footer(),
         ],
       ),
     );
@@ -66,10 +53,6 @@ class EntrepotPageState extends State<EntrepotPage> {
       backgroundColor: Colors.white,
       actions: [
         IconButton(onPressed: (){}, icon: Icon(Icons.person_3, color: Colors.black, size: 30),),
-        IconButton(onPressed: (){
-          //Navigator.pushNamed(context, Routes.MovementItemsRoute);
-          Navigator.pushNamed(context, Routes.CreationMovementRoute);
-        }, icon: Icon(Icons.add, color: Colors.black, size: 30)),
         SizedBox(width: 20)
       ],
     );
@@ -115,5 +98,58 @@ class EntrepotPageState extends State<EntrepotPage> {
             }
         )
     );
+  }
+
+  Widget _ajouterEntrepot(){
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: FloatingActionButton(
+          backgroundColor: Colors.black,
+          onPressed: () async {
+            var retoure = await Navigator.pushNamed(context, Routes.CreationEntrepotRoute);
+            if (retoure == true){
+              setState(() {});
+            }
+          },
+          child: Icon(Icons.add),
+        ),
+      ),
+    );
+  }
+
+  Widget _footer(){
+    return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      items: [
+        BottomNavigationBarItem( icon: Icon(Icons.home),label: "Accueil"),
+        BottomNavigationBarItem( icon: Icon(Icons.category_outlined), label:"Catégories"),
+        BottomNavigationBarItem( icon: Icon(Icons.production_quantity_limits_rounded), label:"Articles"),
+        BottomNavigationBarItem( icon: Icon(Icons.settings),label: "Paramètre"),
+      ],
+      onTap: _onTap,
+      currentIndex: _currentTabIndex,
+    );
+  }
+
+  _onTap(int tabIndex) {
+    switch (tabIndex) {
+      case 0:
+        Navigator.pushNamed(context, Routes.EntrepotRoute);
+        break;
+      case 1:
+        Navigator.pushNamed(context, Routes.ListCategorieRoute);
+        break;
+      case 2:
+        Navigator.pushNamed(context, Routes.ListArticleRoute);
+        break;
+      case 3:
+        Navigator.pushNamed(context, Routes.TemplateRoutes);
+        break;
+    }
+    setState(() {
+      _currentTabIndex = tabIndex;
+    });
   }
 }
