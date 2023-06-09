@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 import '../Controllers/ArticleController.dart';
 import '../utils/Routes.dart';
@@ -28,28 +29,15 @@ class _ListArticlePage extends State<ListArticlePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _body(context),
-      appBar: _appBar(),
+      //appBar: _appBar(),
       floatingActionButton: _floatBtn(),
 
     );
   }
 
   AppBar _appBar() {
-    return AppBar(
-
-      leading: SizedBox(),
-      leadingWidth: 0,
-      title: Container(height: 55, child: Image.asset("assets/orange.jpg"),),
-      backgroundColor: Colors.white,
-
-      actions: [
-        IconButton(
-          onPressed: () {}, icon: Icon(Icons.menu, color: Colors.orange,),),
-        SizedBox(width: 5,)
-      ],
-    );
+    return AppBar();
   }
-
 
   Widget _body(BuildContext context) {
     return Padding(
@@ -61,10 +49,10 @@ class _ListArticlePage extends State<ListArticlePage> {
             ]),
       ),
     );
-
   }
-  Widget _catContent(BuildContext ctx){
-    var articlectrl =ctx.watch<ArticleCtrl>();
+
+  Widget _catContent(BuildContext ctx) {
+    var articlectrl = ctx.watch<ArticleCtrl>();
     print('${articlectrl.articledataList.length}');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,8 +61,9 @@ class _ListArticlePage extends State<ListArticlePage> {
 
         Padding(
           padding: const EdgeInsets.all(5.0),
-          child: Container(child: Text("Nombre des articles: ${articlectrl.articledataList.length}",
-              style:TextStyle(color: Colors.orange,fontSize: 15))),
+          child: Container(child: Text(
+              "Articles: ${articlectrl.articledataList.length}",
+              style: TextStyle(color: Colors.orange, fontSize: 15,fontWeight: FontWeight.bold))),
         ),
         SingleChildScrollView(
 
@@ -83,7 +72,7 @@ class _ListArticlePage extends State<ListArticlePage> {
               shrinkWrap: true,
               physics: NeverScrollableScrollPhysics(),
               itemCount: articlectrl.articledataList.length,
-              itemBuilder: (ctx,i){
+              itemBuilder: (ctx, i) {
                 var articleconvert = articlectrl.articledataList[i];
                 return Column(
                   children: [SizedBox(
@@ -111,7 +100,7 @@ class _ListArticlePage extends State<ListArticlePage> {
 
                       TextButton(
                         child: ListTile(
-                          leading:Image.asset("assets/flag.jpg"),
+                          leading: Image.asset("assets/flag.jpg"),
                           trailing: Icon(Icons.arrow_forward_ios_outlined),
                           title: Row(
                             children: [
@@ -125,7 +114,8 @@ class _ListArticlePage extends State<ListArticlePage> {
                                     style: TextStyle(
                                       color: Colors.black, fontSize: 20,
                                     ),
-                                  ),],
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -136,12 +126,11 @@ class _ListArticlePage extends State<ListArticlePage> {
                           //}, icon:Icon(Icons.arrow_circle_right)),
                           //leading: f.image != null? Image.network("${Constantes.BASE_URL}/${(f.image!)}"):Icon(Icons.error),
                         ),
-                        onPressed: (){
-                          Navigator.pushNamed(context, Routes.DetailsArticleRoute,
-                              arguments:articleconvert.toJson()
+                        onPressed: () {
+                          Navigator.pushNamed(
+                              context, Routes.DetailsArticleRoute,
+                              arguments: articleconvert.toJson()
                           );
-
-
                         },
                       ),
                     ),
@@ -153,7 +142,7 @@ class _ListArticlePage extends State<ListArticlePage> {
     );
   }
 
-  Widget _floatBtn(){
+  Widget _floatBtn() {
     return FloatingActionButton(
       backgroundColor: Colors.black,
       onPressed: () async {
@@ -166,5 +155,6 @@ class _ListArticlePage extends State<ListArticlePage> {
       child: Icon(Icons.add),
     );
   }
+
 
 }
