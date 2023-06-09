@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
     print(res.status);
     if (res.status) {
       await Future.delayed(Duration(seconds: 2));
-      Navigator.pushReplacementNamed(context, Routes.EntrepotRoute);
+      Navigator.pushReplacementNamed(context, Routes.HomeRoute);
     } else {
       var msg =
           res.isException == true ? res.errorMsg : (res.data?['message'] ?? "");
