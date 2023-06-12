@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
 import 'package:squelette_mobile_parcours/utils/Routes.dart';
 
+import '../Controllers/HomeController.dart';
+
 class ListCategoriePage extends StatefulWidget {
   const ListCategoriePage({Key? key}) : super(key: key);
 
@@ -34,20 +36,11 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
             alignment: Alignment.bottomRight,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: FloatingActionButton(
-                backgroundColor: Colors.black,
-                onPressed: () async {
-                  var retoure = await Navigator.pushNamed(context, Routes.CategorieRoute);
-                  if (retoure == true){
-                    setState(() {});
-                  }
-                },
-                child: Icon(Icons.add),
               ),
             ),
-          )
         ],
       ),
+      floatingActionButton: _floatBtn(),
     );
   }
 
@@ -58,7 +51,7 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
     // var entrepotCtrl = context.watch<Entrepot_Ctrl>();
     return Container(
       width: double.infinity,
-      height: 60,
+      height: 50,
       decoration: BoxDecoration(
         color: Colors.orange.shade800,
         borderRadius: BorderRadius.only(
@@ -143,8 +136,10 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
       backgroundColor: Colors.black,
       onPressed: () async {
         var back = await Navigator.pushNamed(
-            context, Routes.ArticlesRoute);
+            context, Routes.ListCategorieRoute);
         if (back == true) {
+          var ctrl = context.read<HomeController>();
+          ctrl.currentTabIndex=1;
           //setState(() {});
         }
       },
