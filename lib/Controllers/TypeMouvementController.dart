@@ -12,7 +12,7 @@ class TypeMouvementCtrl with ChangeNotifier{
   TypeMouvementCtrl({this.stockage});
 
   void recuperDataTypeMouvement() async{
-    var url = "${Endpoints.entrepotEndpoint}";
+    var url = "${Endpoints.mouvementEndpoint}";
     String? token=stockage?.read(StockageKeys.userToken);
     print("url mouvement === $url");
 
