@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
 import '../Controllers/ArticleController.dart';
+import '../Controllers/HomeController.dart';
 import '../utils/Routes.dart';
 
 
@@ -45,13 +46,13 @@ class _ListArticlePage extends State<ListArticlePage> {
       child: SingleChildScrollView(
         child: Column(
             children: [
-              _catContent(context),
+              _artclContent(context),
             ]),
       ),
     );
   }
 
-  Widget _catContent(BuildContext ctx) {
+  Widget _artclContent(BuildContext ctx) {
     var articlectrl = ctx.watch<ArticleCtrl>();
     print('${articlectrl.articledataList.length}');
     return Column(
@@ -127,10 +128,9 @@ class _ListArticlePage extends State<ListArticlePage> {
                           //leading: f.image != null? Image.network("${Constantes.BASE_URL}/${(f.image!)}"):Icon(Icons.error),
                         ),
                         onPressed: () {
-                          Navigator.pushNamed(
-                              context, Routes.DetailsArticleRoute,
-                              arguments: articleconvert.toJson()
-                          );
+                          Navigator.pushNamed(context, Routes.DetailsArticleRoute, arguments: articleconvert.toJson());
+                          var ctrl = context.read<HomeController>();
+                          ctrl.currentTabIndex=2;
                         },
                       ),
                     ),
