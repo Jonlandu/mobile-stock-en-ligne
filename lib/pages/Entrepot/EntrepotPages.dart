@@ -38,16 +38,7 @@ class EntrepotPageState extends State<EntrepotPage> {
             alignment: Alignment.bottomRight,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: FloatingActionButton(
-                backgroundColor: Colors.black,
-                onPressed: () async {
-                  var retoure = await Navigator.pushNamed(context, Routes.CreationEntrepotRoute);
-                  if (retoure == true){
-                    setState(() {});
-                  }
-                },
-                child: Icon(Icons.add),
-              ),
+              child: _floatBtn(),
             ),
           )
         ],
@@ -94,6 +85,20 @@ class EntrepotPageState extends State<EntrepotPage> {
               );
             }
         )
+    );
+  }
+
+  Widget _floatBtn() {
+    return FloatingActionButton(
+      backgroundColor: Colors.black,
+      onPressed: () async {
+        var back = await Navigator.pushNamed(
+            context, Routes.CreationEntrepotRoute);
+        if (back == true) {
+          //setState(() {});
+        }
+      },
+      child: Icon(Icons.add),
     );
   }
 }
