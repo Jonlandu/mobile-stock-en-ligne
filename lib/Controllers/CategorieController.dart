@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
 import '../Model/CategorieModel.dart';
@@ -16,8 +16,9 @@ import '../utils/Request.dart';
 
   Future<HttpResponse> categorieDataCreate(Map data) async{
     var url="${Endpoints.createCategorieEndpoints}";
-    var _token=stockage?.read(StockageKeys.tokenkey);
-    HttpResponse response = await postData(url, data, token: _token);
+    var _token=stockage?.read(StockageKeys.userToken);
+    HttpResponse response = await postData(url, data,token: _token);
+    print('))))))))))))token : ${_token}');
     //return response;
 
     if(response.status){
@@ -53,8 +54,8 @@ void main(){
   var c = CategorieCtrl();
   Map  data = {
     'designation' : 'enfeeeeee',
-    'description' : 'est un produit pour les enfants ',
-    'entrepot_id' : 1
+    'user_id' : 1
   };
+  // c.recupererDataCategorie();
   c.categorieDataCreate(data);
 }
