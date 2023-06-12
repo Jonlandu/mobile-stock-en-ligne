@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
+import 'package:squelette_mobile_parcours/Controllers/EntrepotsController.dart';
 import 'package:squelette_mobile_parcours/utils/Routes.dart';
 import '../Controllers/ArticleController.dart';
-import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
+import 'package:flutter_multiselect/flutter_multiselect.dart';
 import '../utils/GlobalColors.dart';
 import '../../widget/ChargementWidget.dart';
 class ArticlePage extends StatefulWidget {
@@ -14,12 +16,15 @@ class _ArticlePageState extends State<ArticlePage> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      var entrepotCtrl = context.read<EntrepotCtrl>();
+      entrepotCtrl.recuperDataEntrepot();
       var categorieCtrl = context.read<CategorieCtrl>();
       categorieCtrl.recupererDataCategorie();
     });
   }
   Color couleurFont = Colors.black;
   var _value = "-1";
+  var listeCategorie = [];
   bool isVisible = false;
   var txtnom_article = TextEditingController();
   var txt_description = TextEditingController();
@@ -27,8 +32,7 @@ class _ArticlePageState extends State<ArticlePage> {
   var txtstockminimal = TextEditingController();
   var txtstockinitial = TextEditingController();
   var txtschamps = [
-    'veuillez selectionner categorie',
-    'veuillez selectionner entrepot'
+    'veuillez selectionner entrepot',
   ];
 
   @override
@@ -38,12 +42,12 @@ class _ArticlePageState extends State<ArticlePage> {
       body: _body(),
     );
   }
-  Widget _selectionnerCategorie() {
-    var catCtrl = context.watch<CategorieCtrl>();
-    var renduList = catCtrl.categoriesList.map((categorie) {
+  Widget _selectionnerEntrepot() {
+    var entrpCat = context.watch<EntrepotCtrl>();
+    var renduList = entrpCat.entrepots.map((entrepot) {
       return DropdownMenuItem(
-        child: Text("${categorie.designation}", style: TextStyle(fontWeight: FontWeight.bold)),
-        value:  "${categorie.id}",
+        child: Text("${entrepot.nom}", style: TextStyle(fontWeight: FontWeight.bold)),
+        value:  "${entrepot.id}",
       );
     }).toList();
     return Center(
@@ -65,8 +69,8 @@ class _ArticlePageState extends State<ArticlePage> {
           },
           items: [
             DropdownMenuItem(
-              child: Text("select categorie",
-                  style: TextStyle(fontWeight: FontWeight.bold)),
+              child: Text("selectionner entrepot",
+                  style: TextStyle(fontWeight: FontWeight.normal)),
               value: "-1",
             ),
             ...renduList
@@ -74,6 +78,51 @@ class _ArticlePageState extends State<ArticlePage> {
         ),
       ),
     );
+  }
+
+
+  Widget _selectMultipleCategorie() {
+    var catCtrl = context.watch<CategorieCtrl>();
+    return Center(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+          child: MultiSelect(
+            //--------customization selection modal-----------
+              buttonBarColor: Colors.red,
+              cancelButtonText: "Exit",
+              titleText: "Custom Title",
+              checkBoxColor: Colors.black,
+              selectedOptionsInfoText: "Selected custom text (tap to remove)",
+              selectedOptionsBoxColor: Colors.green,
+              // autovalidateMode: AutovalidateMode.always,
+              maxLength: 10, // optional
+              //--------end customization selection modal------------
+              validator: (dynamic value) {
+                if (value == null) {
+                  return 'Please select one or more option(s)';
+                }
+                return null;
+              },
+              errorText: 'Please select one or more option(s)',
+              dataSource:catCtrl.categoriesList.map((categorie) {
+                return {
+                  "categorie": categorie.designation,
+                  "valeur": categorie.id,
+                };
+              }).toList(),
+              textField: 'categorie',
+              valueField: 'valeur',
+              filterable: true,
+              required: true,
+              onSaved: (value) {
+                listeCategorie = value;
+                print('The saved values are $value');
+                print('la liste des items : ${listeCategorie}');
+              }),
+        ),
+        /*change: (value) {
+          print('The selected values are $value');
+        }*/);
   }
 
   OutlineInputBorder _outlineborder(MaterialColor _color) {
@@ -84,7 +133,9 @@ class _ArticlePageState extends State<ArticlePage> {
   AppBar _appBar() {
     return AppBar(
       leading: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pop(context, true);
+        },
         icon: Icon(
           Icons.arrow_back,
           color: Colors.black,
@@ -151,12 +202,16 @@ class _ArticlePageState extends State<ArticlePage> {
                     SizedBox(
                       height: 3,
                     ),
-                    _selectionnerCategorie(),
+                    _selectionnerEntrepot(),
                     SizedBox(
                       height: 3,
                     ),
                     SizedBox(
                       height: 3,
+                    ),
+                    _selectMultipleCategorie(),
+                    SizedBox(
+                      height: 4,
                     ),
                     _buttoncreerArticle(),
                   ],
@@ -185,7 +240,7 @@ class _ArticlePageState extends State<ArticlePage> {
             Icons.edit,
             color: Colors.black,
           ),
-          hintText: "inserer le nom article",
+          hintText: "article",
           border: InputBorder.none,
         ),
       ),
@@ -209,7 +264,7 @@ class _ArticlePageState extends State<ArticlePage> {
             Icons.description,
             color: Colors.black,
           ),
-          hintText: "inserer description",
+          hintText: "description",
           border: InputBorder.none,
         ),
       ),
@@ -232,7 +287,7 @@ class _ArticlePageState extends State<ArticlePage> {
             Icons.edit,
             color: Colors.black,
           ),
-          hintText: "inserer l'unite ",
+          hintText: "unite ",
           border: InputBorder.none,
         ),
       ),
@@ -255,7 +310,7 @@ class _ArticlePageState extends State<ArticlePage> {
             Icons.edit,
             color: Colors.black,
           ),
-          hintText: "inserer le stock",
+          hintText: "stock minimal",
           border: InputBorder.none,
         ),
       ),
@@ -278,7 +333,7 @@ class _ArticlePageState extends State<ArticlePage> {
             Icons.edit,
             color: Colors.black,
           ),
-          hintText: "inserer le stock initial",
+          hintText: "stock initial",
           border: InputBorder.none,
         ),
       ),
@@ -316,13 +371,15 @@ class _ArticlePageState extends State<ArticlePage> {
     String stock_minimal = txtstockminimal.text;
     String stock_initial = txtstockinitial.text;
     String id = _value;
+    List<dynamic> idcategorie = listeCategorie;
     Map dataForArticle = {
       "nom_article": nom_article,
       "description_article": description_article,
       "unite": unite,
       "stock_minimal": stock_minimal,
       "stock_initial": stock_initial,
-      "categorie_id": id
+      "entrepot_id": id,
+      "categorie" : idcategorie
     };
 
     var response = await controller.articleDataCreate(dataForArticle);
