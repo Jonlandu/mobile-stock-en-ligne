@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:squelette_mobile_parcours/Controllers/HomeController.dart';
 import 'package:squelette_mobile_parcours/pages/Entrepot/EntrepotPages.dart';
 import 'package:squelette_mobile_parcours/pages/ListArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/ListCategoriePage.dart';
@@ -13,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>{
 
-  int _currentTabIndex = 0;
+  // int _currentTabIndex = 0;
   Color other = Colors.black;
   Color selectedItem = GlobalColors.orange;
 
@@ -26,9 +28,10 @@ class _HomePageState extends State<HomePage>{
 
   @override
   Widget build(BuildContext context) {
+    var ctrl = context.watch<HomeController>();
     return Scaffold(
       appBar: _entete(),
-      body:pages[_currentTabIndex],
+      body:pages[ctrl.currentTabIndex],
       bottomNavigationBar: _footer(),);
   }
   AppBar _entete() {
@@ -54,8 +57,10 @@ class _HomePageState extends State<HomePage>{
     );
   }
   Widget _footer(){
+    var ctrl = context.watch<HomeController>();
+
     return BottomNavigationBar(
-      currentIndex: _currentTabIndex,
+      currentIndex: ctrl.currentTabIndex,
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: other,
       selectedItemColor: selectedItem,
@@ -67,7 +72,7 @@ class _HomePageState extends State<HomePage>{
       ],
       onTap: (int tabIndex) {
         setState(() {
-          _currentTabIndex = tabIndex;
+          ctrl.currentTabIndex = tabIndex;
         });
       },
     );
