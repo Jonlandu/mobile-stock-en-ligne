@@ -11,14 +11,14 @@ String typeMouvementModelToJson(TypeMouvementModel data) => json.encode(data.toJ
 class TypeMouvementModel {
   int? id;
   String? designation;
-  int? etat;
+  String? type;
   DateTime? createdAt;
   DateTime? updatedAt;
 
   TypeMouvementModel({
     this.id,
     this.designation,
-    this.etat,
+    this.type,
     this.createdAt,
     this.updatedAt,
   });
@@ -26,7 +26,7 @@ class TypeMouvementModel {
   factory TypeMouvementModel.fromJson(Map<String, dynamic> json) => TypeMouvementModel(
     id: json["id"],
     designation: json["designation"],
-    etat: json["etat"],
+    type: json["type"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
   );
@@ -34,7 +34,7 @@ class TypeMouvementModel {
   Map<String, dynamic> toJson() => {
     "id": id,
     "designation": designation,
-    "etat": etat,
+    "type": type,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
   };
