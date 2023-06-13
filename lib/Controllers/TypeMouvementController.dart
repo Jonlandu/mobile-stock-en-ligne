@@ -12,15 +12,15 @@ class TypeMouvementCtrl with ChangeNotifier{
   TypeMouvementCtrl({this.stockage});
 
   void recuperDataTypeMouvement() async{
-    var url = "${Endpoints.mouvementEndpoint}";
+    var url = "${Endpoints.typeMouvementEndpoint}";
     String? token=stockage?.read(StockageKeys.userToken);
-    print("url mouvement === $url");
-
+    print("url typeMouvement === $url");
+    print("token ==== $token");
     notifyListeners();
 
     var reponse = await getData(url, token: token);
     if(reponse != null){
-      List<TypeMouvementModel> tempo = reponse.map<TypeMouvementModel>((e) => TypeMouvementModel.fromJson(e)).toList();
+      List<TypeMouvementModel> tempo = reponse['data'].map<TypeMouvementModel>((e) => TypeMouvementModel.fromJson(e)).toList();
       typeMouvements = tempo;
       print("reponse === $reponse");
 
