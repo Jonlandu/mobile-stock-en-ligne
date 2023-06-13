@@ -6,34 +6,30 @@ import 'package:squelette_mobile_parcours/utils/Request.dart';
 import '../Model/MouvementModel.dart';
 import '../utils/StockageKeys.dart';
 
-class MouvementCtrl with ChangeNotifier{
+class MouvementCtrl with ChangeNotifier {
   GetStorage? stockage;
   List<MouvementModel> mouvements = [];
+
   MouvementCtrl({this.stockage});
 
-  Future<bool> envoieDataMouvement(Map data) async {
+  Future<HttpResponse> envoieDataMouvement(Map data) async {
     var url = "${Endpoints.mouvementEndpoint}";
-    var _token=stockage?.read(StockageKeys.tokenkey);
-    print("url mouvement === $url");
-    var reponse = await postData(url, data,  token: _token);
+    var _token = stockage?.read(StockageKeys.userToken);
 
-    if (reponse.status) {
-      var tempo = MouvementModel.fromJson(reponse.data?["mouvement"]);
+    print("token ==== $_token");
+    var reponse = await postData(url, data, token: _token);
+    print(reponse.data);
+    if (reponse.status && reponse.data?['status'] == true) {
+    /*  var tempo = MouvementModel.fromJson(reponse.data?["mouvement"]);
       mouvements.add(tempo);
       print("reponse === $reponse");
-      notifyListeners();
-
-      return true;
+      notifyListeners();*/
     }
-    return false;
+    return reponse;
   }
 }
-void main(){
-  var entr = MouvementCtrl();
-  entr.envoieDataMouvement({
 
-    "nom":1,
-    "quantite":200,
-    "motif":"achat"
-  });
+void main() {
+  var entr = MouvementCtrl();
+  entr.envoieDataMouvement({"nom": 1, "quantite": 200, "motif": "achat"});
 }
