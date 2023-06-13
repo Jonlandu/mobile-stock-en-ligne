@@ -12,6 +12,7 @@ class Endpoints {
 
   static const String entrepotEndpoint = "/api/entrepots";
 
-  static const String mouvementEndpoint = "/api/type";
+  static const String typeMouvementEndpoint = "/api/type";
+  static const String mouvementEndpoint = "/api/mouvement";
 
 }
