@@ -52,26 +52,33 @@ class _DetailsArticlePage extends State<DetailsArticlePage> {
 
   Widget _body() {
     return SingleChildScrollView(
+      physics: NeverScrollableScrollPhysics(),
       child: Column(
           children: [
             SizedBox(height: 20,),
-            Container(width:250,child: Center(child: Image.asset("assets/flag.jpg"))),
-            SizedBox(height: 40,),
+            Container(width:200,child: Center(child: Image.asset("assets/flag.jpg"))),
+            SizedBox(height: 15,),
+            //Text('Produit: ${widget.article.nomArticle}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,),
+            //),
+            SizedBox(height: 20,),
             DetailContentWidget(detailsartcl: widget.article),
-            SizedBox(
-                height: 50),
+            //SizedBox(
+              //  height: 20),
 
-            _mouvementBtn(),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     //_mouvementBtn(),
+            //   ],
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-
-                    width:80,child: Image.asset("assets/orange.jpg")),
+                // Container(
+                //
+                //     width:80,child: Image.asset("assets/orange.jpg")),
               ],
             ),
-            //_gdtitre(),
-            //_catContent(detailsartcl: widget.article),
 
           ]
       ),
@@ -81,7 +88,7 @@ class _DetailsArticlePage extends State<DetailsArticlePage> {
 
   Widget _mouvementBtn(){
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+          margin: EdgeInsets.symmetric(vertical: 10,),
       padding:
       EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       width: 250,
@@ -98,7 +105,7 @@ class _DetailsArticlePage extends State<DetailsArticlePage> {
               child: Text(
                 "Operation",
                 style:
-                TextStyle(color: Colors.black, fontSize: 20),
+                TextStyle(color: Colors.white, fontSize: 20),
               ),
             );
           }

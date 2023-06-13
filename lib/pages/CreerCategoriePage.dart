@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
+import 'package:squelette_mobile_parcours/Model/CategorieModel.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
 import 'package:squelette_mobile_parcours/widget/ChargementWidget.dart';
 import '../utils/Routes.dart';
@@ -17,7 +18,6 @@ class _CategoriePageState extends State<CategoriePage> {
   Color couleurFont = Colors.black;
   bool isVisible = false;
   var txtDesignation = TextEditingController();
-  var txtDescription = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,9 @@ class _CategoriePageState extends State<CategoriePage> {
 
   AppBar _appBar() {
     return AppBar(
-      leading: IconButton(onPressed: (){},icon: Icon(Icons.arrow_back, color: Colors.black,),),
+      leading: IconButton(onPressed: (){
+        Navigator.pop(context,true);
+      },icon: Icon(Icons.arrow_back, color: Colors.black,),),
       title: Text("Creation categorie", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold,fontSize: 18),),
       backgroundColor: Colors.white70, elevation: 0,
       actions: [
@@ -53,7 +55,6 @@ class _CategoriePageState extends State<CategoriePage> {
                     _champDesignation(),
                     SizedBox(height: 10,),
                     SizedBox(height: 10,),
-                    _champDescription(),
                     SizedBox(height: 25,),
                     _buttoncreerCategorie(),
                     SizedBox(
@@ -106,32 +107,6 @@ class _CategoriePageState extends State<CategoriePage> {
       ),
     );
   }
-  Widget _champDescription(){
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding:
-      EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-      width: 350,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(29),
-          color: GlobalColors.greyChamp),
-      child: TextFormField(
-        maxLines: null,
-        maxLength: 1000,
-        controller: txtDescription,
-        validator: (val) =>
-        val!.isEmpty? "champ obligatoire" : null,
-        decoration: InputDecoration(
-          icon: Icon(
-            Icons.description,
-            color: Colors.black,
-          ),
-          hintText: "inserer description",
-          border: InputBorder.none,
-        ),
-      ),
-    );
-  }
 
   Widget _buttoncreerCategorie(){
     return Container(
@@ -165,8 +140,6 @@ class _CategoriePageState extends State<CategoriePage> {
     int a = 1;
     Map dataForCategorie = {
       "designation": txtDesignation.text,
-      "description": txtDescription.text,
-      "entrepot_id": a
     };
     print(dataForCategorie);
 
@@ -176,7 +149,7 @@ class _CategoriePageState extends State<CategoriePage> {
      print(response.status);
     if (response.status) {
       await Future.delayed(Duration(seconds: 2));
-     Navigator.pushReplacementNamed(context, Routes.ListCategorieRoute);
+      Navigator.pop(context,true);
     } else {
       var msg =
       response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");

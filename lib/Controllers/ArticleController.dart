@@ -17,7 +17,7 @@ class ArticleCtrl with ChangeNotifier {
 
  Future<HttpResponse> articleDataCreate(Map data) async{
   var url="${Endpoints.createArticlesEndpoints}";
-  var _token=stockage?.read(StockageKeys.tokenkey);
+  var _token=stockage?.read(StockageKeys.userToken);
   HttpResponse response = await postData(url, data, token: _token);
   //return response;
 

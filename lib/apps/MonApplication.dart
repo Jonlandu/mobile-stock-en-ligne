@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:squelette_mobile_parcours/Controllers/MouvementController.dart';
 import 'package:squelette_mobile_parcours/Controllers/StatistiqueController.dart';
 import 'package:squelette_mobile_parcours/Controllers/ArticleController.dart';
 import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
 import 'package:squelette_mobile_parcours/Controllers/EntrepotsController.dart';
+import 'package:squelette_mobile_parcours/Controllers/TypeMouvementController.dart';
 import 'package:squelette_mobile_parcours/utils/StockageKeys.dart';
+import '../Controllers/HomeController.dart';
 import '../Controllers/UserController.dart';
 import '../utils/RoutesManager.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +26,9 @@ class MonApplication extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=> ArticleCtrl(stockage: box)),
         ChangeNotifierProvider(create: (_)=> CategorieCtrl(stockage: box)),
         ChangeNotifierProvider(create: (_)=> EntrepotCtrl(stockage: box)),
+        ChangeNotifierProvider(create: (_)=> HomeController()),
+        ChangeNotifierProvider(create: (_)=> MouvementCtrl(stockage: box)),
+        ChangeNotifierProvider(create: (_)=> TypeMouvementCtrl(stockage: box)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

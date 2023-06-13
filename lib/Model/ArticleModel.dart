@@ -15,7 +15,7 @@ class ArticleModel {
   String? unite;
   int? stockMinimal;
   int? stockInitial;
-  int? categorieId;
+  int? entrepot_id;
 
   ArticleModel({
     this.id,
@@ -24,7 +24,7 @@ class ArticleModel {
     this.unite,
     this.stockMinimal,
     this.stockInitial,
-    this.categorieId,
+    this.entrepot_id,
 
   });
 
@@ -35,7 +35,7 @@ class ArticleModel {
     unite: json["unite"],
     stockMinimal: json["stock_minimal"],
     stockInitial: json["stock_initial"],
-    categorieId: json["categorie_id"],
+    entrepot_id: json["categorie_id"],
 
   );
 
@@ -46,7 +46,7 @@ class ArticleModel {
     "unite": unite,
     "stock_minimal": stockMinimal,
     "stock_initial": stockInitial,
-    "categorie_id": categorieId,
+    "entrepot_id": entrepot_id,
 
   };
 }

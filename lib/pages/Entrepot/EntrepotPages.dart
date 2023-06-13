@@ -55,29 +55,6 @@ class EntrepotPageState extends State<EntrepotPage> {
     );
   }
 
-  AppBar entete() {
-    return AppBar(
-      leading: Container(),
-      leadingWidth: 0,
-      elevation: 0,
-      title: Container(height: 50, child: Image.asset("assets/orange.jpg")),
-      //Icon(Icons.data_thresholding_rounded, color: GlobalColors.orange, size: 50,),
-      //Text("Stock Online",style: TextStyle(color: Colors.black)),elevation: 0,
-      backgroundColor: Colors.white,
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.notifications,color: Colors.black,),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.person,color: Colors.black,),
-        ),
-        SizedBox(width: 20)
-      ],
-    );
-  }
-
   Widget _banner(){
    // var entrepotCtrl = context.watch<Entrepot_Ctrl>();
     return Container(

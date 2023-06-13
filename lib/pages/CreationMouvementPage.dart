@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'package:squelette_mobile_parcours/Controllers/MouvementController.dart';
+import 'package:squelette_mobile_parcours/Controllers/TypeMouvementController.dart';
 import '../utils/GlobalColors.dart';
+import '../utils/Routes.dart';
 import '../widget/ChargementWidget.dart';
 
 class CreationMouvementPage extends StatefulWidget {
@@ -14,10 +17,18 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
   bool isVisible = false;
   var formkey = GlobalKey<FormState>();
   var typeMouvement = "-1";
-  var etatMouvement = TextEditingController();
   var quantiteChamp = TextEditingController();
   var MotifChamp = TextEditingController();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      var typeMouveCtrl = context.read<TypeMouvementCtrl>();
+      typeMouveCtrl.recuperDataTypeMouvement();
+    });
+  }
 
 
   @override
@@ -76,7 +87,6 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
                     children: [
                       SizedBox(height: 30),
                       _typeMouvement(),
-                      _etatMouvement(),
                       _quantiteChamp(),
                       _MotifChamp(),
 
@@ -107,7 +117,15 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
 
 
   Widget _typeMouvement() {
-    var catCtrl = ["Sortie", "Entrée"];
+    var typeMouveCtrl = context.watch<TypeMouvementCtrl>();
+    var renduList = typeMouveCtrl.typeMouvements.map((typeMouvement) {
+
+      return DropdownMenuItem(
+        child: Text("${typeMouvement.designation}", style: TextStyle(fontWeight: FontWeight.bold)),
+        value:  "${typeMouvement.id}",
+      );
+    }).toList();
+    print(typeMouveCtrl.typeMouvements.last.id);
     return Center(
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
@@ -124,70 +142,16 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
           ),
           value: typeMouvement,
           onChanged: (value) {
-            setState(() { typeMouvement = catCtrl.toString(); });
+            setState(() { typeMouvement = typeMouveCtrl.toString(); });
           },
           items: [
             DropdownMenuItem( child: Text("Type de mouvement", style: TextStyle(color: Colors.black54)), value: "-1"),
-            //...renduList
+           ...renduList
           ],
         ),
       ),
     );
   }
-  Widget _etatMouvement() {
-    var catCtrl = ["Sortie", "Entrée"];
-    /*var renduList = catCtrl.categoriesList.map((categorie) {
-      return DropdownMenuItem(
-        child: Text("${categorie.designation}", style: TextStyle(fontWeight: FontWeight.bold)),
-        value:  "${categorie.id}",
-      );
-    }).toList();*/
-    return Center(
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        padding:EdgeInsets.symmetric(horizontal: 20),
-        width: 340,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(29),
-            color: GlobalColors.greyChamp),
-        child: DropdownButtonFormField(
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: GlobalColors.greyChamp,
-            focusColor: GlobalColors.greyChamp,
-          ),
-          value: typeMouvement,
-          onChanged: (value) {
-            setState(() { typeMouvement = value.toString(); });
-          },
-          items: [
-            DropdownMenuItem( child: Text("Etat de mouvement", style: TextStyle(color: Colors.black54)), value: "-1"),
-            //...renduList
-          ],
-        ),
-      ),
-    );
-  }
-  /*Widget _etatMouvement() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding:EdgeInsets.symmetric(horizontal: 20),
-      width: 340,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(29),
-          color: GlobalColors.greyChamp),
-      child: TextFormField(
-        keyboardType: TextInputType.text,
-        controller: etatMouvement,
-        validator: (val) =>
-        val!.isEmpty ? "Champ obligatoire" : null,
-        decoration: InputDecoration(icon: Icon(Icons.edit,color: Colors.black45,),
-          hintText: "Etat du mouvement",
-          border: InputBorder.none,
-        ),
-      ),
-    );
-  }*/
   Widget _quantiteChamp() {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -260,5 +224,26 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
       return;
     }
     isVisible = true;
+    setState(() {});
+
+    var ctrl = context.read<MouvementCtrl>();
+    Map dataNewMouvement = {
+      "typeMouvementId": typeMouvement,
+      "quantite": quantiteChamp.text,
+      "motif":MotifChamp.text
+    };
+    print(dataNewMouvement["typeMouvementId"]);
+
+    var res = await ctrl.envoieDataMouvement(dataNewMouvement);
+    await Future.delayed(Duration(seconds: 3));
+    isVisible = false;
+
+    setState(() {});
+    print(res);
+
+    if (res) {
+      await Future.delayed(Duration(seconds: 2));
+      Navigator.pop(context, [true, Routes.EntrepotRoute]);
+    }
   }
 }
