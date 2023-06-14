@@ -29,7 +29,7 @@ class MouvementCtrl with ChangeNotifier {
     return reponse;
   }
   void recupererDataMouvement() async{
-    var url = "${Endpoints.ShowmouvementEndpoint}";
+    var url = "${Endpoints.mouvementEndpoint}";
     String? token=stockage?.read(StockageKeys.userToken);
     loading = true;
     notifyListeners();
