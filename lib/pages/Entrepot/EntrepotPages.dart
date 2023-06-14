@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../Controllers/EntrepotsController.dart';
+import '../../Controllers/HomeController.dart';
 import '../../utils/GlobalColors.dart';
 import '../../utils/Routes.dart';
 
@@ -38,16 +39,7 @@ class EntrepotPageState extends State<EntrepotPage> {
             alignment: Alignment.bottomRight,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: FloatingActionButton(
-                backgroundColor: Colors.black,
-                onPressed: () async {
-                  var retoure = await Navigator.pushNamed(context, Routes.CreationEntrepotRoute);
-                  if (retoure == true){
-                    setState(() {});
-                  }
-                },
-                child: Icon(Icons.add),
-              ),
+              child: _floatBtn(),
             ),
           )
         ],
@@ -94,6 +86,22 @@ class EntrepotPageState extends State<EntrepotPage> {
               );
             }
         )
+    );
+  }
+
+  Widget _floatBtn() {
+    return FloatingActionButton(
+      backgroundColor: Colors.black,
+      onPressed: () async {
+        var back = await Navigator.pushNamed(
+            context, Routes.CreationEntrepotRoute);
+        if (back == true) {
+          var ctrl = context.read<HomeController>();
+          ctrl.currentTabIndex=0;
+          //setState(() {});
+        }
+      },
+      child: Icon(Icons.add),
     );
   }
 }

@@ -16,9 +16,10 @@ class CreationMouvementPage extends StatefulWidget {
 class _CreationMouvementPageState extends State<CreationMouvementPage> {
   bool isVisible = false;
   var formkey = GlobalKey<FormState>();
-  var typeMouvement = "-1";
+  var typeMouvement=0;
   var quantiteChamp = TextEditingController();
   var MotifChamp = TextEditingController();
+  var article = 1;
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var typeMouveCtrl = context.read<TypeMouvementCtrl>();
       typeMouveCtrl.recuperDataTypeMouvement();
+      print(typeMouveCtrl.typeMouvements);
     });
   }
 
@@ -118,14 +120,16 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
 
   Widget _typeMouvement() {
     var typeMouveCtrl = context.watch<TypeMouvementCtrl>();
-    var renduList = typeMouveCtrl.typeMouvements.map((typeMouvement) {
 
+    var renduList = typeMouveCtrl.typeMouvements.map((typeMouvement) {
+      // print("typeMouvement === ${typeMouvement.designation}");
       return DropdownMenuItem(
         child: Text("${typeMouvement.designation}", style: TextStyle(fontWeight: FontWeight.bold)),
-        value:  "${typeMouvement.id}",
+        value:  typeMouvement.id,
       );
     }).toList();
-    print(typeMouveCtrl.typeMouvements.last.id);
+    // print("rendu list===== ${renduList}");
+    // print(typeMouveCtrl.typeMouvements);
     return Center(
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
@@ -142,10 +146,10 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
           ),
           value: typeMouvement,
           onChanged: (value) {
-            setState(() { typeMouvement = typeMouveCtrl.toString(); });
+            setState(() { typeMouvement = value!; });
           },
           items: [
-            DropdownMenuItem( child: Text("Type de mouvement", style: TextStyle(color: Colors.black54)), value: "-1"),
+            DropdownMenuItem( child: Text("Type de mouvement", style: TextStyle(color: Colors.black54)), value: 0),
            ...renduList
           ],
         ),
@@ -228,11 +232,13 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
 
     var ctrl = context.read<MouvementCtrl>();
     Map dataNewMouvement = {
-      "typeMouvementId": typeMouvement,
-      "quantite": quantiteChamp.text,
-      "motif":MotifChamp.text
+      "type": typeMouvement,
+      "quantite": int.parse(quantiteChamp.text),
+      "motif":MotifChamp.text,
+      "article_id":article
     };
-    print(dataNewMouvement["typeMouvementId"]);
+
+    print("dataNewMouvement == $dataNewMouvement");
 
     var res = await ctrl.envoieDataMouvement(dataNewMouvement);
     await Future.delayed(Duration(seconds: 3));
@@ -240,10 +246,20 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
 
     setState(() {});
     print(res);
+    print('message ${res.data}');
 
-    if (res) {
+    if (res.status && res.data?["status"]==true) {
       await Future.delayed(Duration(seconds: 2));
       Navigator.pop(context, [true, Routes.EntrepotRoute]);
+    }else{
+      var msg =
+      res.isException == true ? res.errorMsg : (res.data?['message']);
+
+      print("mqg=====!!! : $msg");
+      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 5),
+          content: Text('$msg')));
     }
   }
 }

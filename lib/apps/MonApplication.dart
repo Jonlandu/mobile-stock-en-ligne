@@ -1,3 +1,4 @@
+import 'package:alice/alice.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:squelette_mobile_parcours/Controllers/MouvementController.dart';
@@ -12,6 +13,8 @@ import '../Controllers/UserController.dart';
 import '../utils/RoutesManager.dart';
 import 'package:provider/provider.dart';
 import '../utils/Routes.dart';
+
+Alice alice=Alice(showNotification: true);
 
 class MonApplication extends StatelessWidget {
   var box = GetStorage();
@@ -31,6 +34,7 @@ class MonApplication extends StatelessWidget {
         ChangeNotifierProvider(create: (_)=> TypeMouvementCtrl(stockage: box)),
       ],
       child: MaterialApp(
+        navigatorKey: alice.getNavigatorKey(),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RoutesManager.route,
         initialRoute: Routes.LoadingRoutes,
