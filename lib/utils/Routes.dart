@@ -14,6 +14,7 @@ class Routes {
   static const String ListCategorieRoute= "/listCategorie";
   static const String DetailsArticleRoute= "/DetailsArticle";
   static const String CreationMovementRoute= "/creationMouvement";
+  static const String MovementPageRoute= "/MouvementPage";
 
 
 

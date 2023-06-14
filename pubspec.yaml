@@ -48,6 +48,7 @@ dependencies:
 
 dependency_overrides:
   http: ^1.0.0
+  collection:  ^1.17.1
 
 
 dev_dependencies:

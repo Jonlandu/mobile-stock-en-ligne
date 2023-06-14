@@ -110,7 +110,7 @@ class _ListArticlePage extends State<ListArticlePage> {
                                 children: [
                                   Text(
                                     "${articleconvert.nomArticle}  "
-                                        "${articleconvert.stockMinimal}  "
+                                        "${articleconvert.stockInitial}  "
                                         "${articleconvert.unite}  ",
                                     style: TextStyle(
                                       color: Colors.black, fontSize: 20,
@@ -147,7 +147,7 @@ class _ListArticlePage extends State<ListArticlePage> {
       backgroundColor: Colors.black,
       onPressed: () async {
         var back = await Navigator.pushNamed(
-            context, Routes.ArticlesRoute);
+            context, Routes.ArticlesCompteRoute);
         if (back == true) {
           //setState(() {});
         }

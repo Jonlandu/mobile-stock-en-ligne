@@ -8,6 +8,7 @@ import '../utils/StockageKeys.dart';
 
 class MouvementCtrl with ChangeNotifier {
   GetStorage? stockage;
+  bool? loading = false;
   List<MouvementModel> mouvements = [];
 
   MouvementCtrl({this.stockage});
@@ -27,6 +28,24 @@ class MouvementCtrl with ChangeNotifier {
     }
     return reponse;
   }
+  void recupererDataMouvement() async{
+    var url = "${Endpoints.ShowmouvementEndpoint}";
+    String? token=stockage?.read(StockageKeys.userToken);
+    loading = true;
+    notifyListeners();
+    var response = await getData(url, token: token);
+    if(response!=null){
+      List<MouvementModel> DataMouvement = response.map<MouvementModel>((e) => MouvementModel.fromJson(e)).toList();
+      mouvements = DataMouvement;
+      notifyListeners();
+      print(mouvements[0]);
+    }
+    loading = false;
+    notifyListeners();
+  }
+
+
+
 }
 
 void main() {
