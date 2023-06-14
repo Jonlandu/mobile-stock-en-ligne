@@ -49,9 +49,9 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_)=> ListArticlePage());
       case Routes.CreationMovementRoute:
         return MaterialPageRoute(builder: (_)=> CreationMouvementPage());
-      case Routes.ArticlesRoute:
+      case Routes.CreerArticlesRoute:
         return MaterialPageRoute(builder: (_)=> ArticlePage());
-      case Routes.CategorieRoute :
+      case Routes.CreerCategorieRoute :
       return MaterialPageRoute(builder: (_)=> CategoriePage());
       case Routes.DetailsArticleRoute:
         var args=r.arguments as Map?;

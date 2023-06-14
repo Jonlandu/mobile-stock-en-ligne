@@ -6,8 +6,8 @@ class Routes {
   static const String HomeRoute= "/home";
   static const String DashboardRoute="/dashboard";
   static const String ArticlesCompteRoute="/articlecompteur";
-  static const String CategorieRoute = "/categorie";
-  static const String ArticlesRoute = "/article";
+  static const String CreerCategorieRoute = "/categorie";
+  static const String CreerArticlesRoute = "/article";
   static const String EntrepotRoute= "/entrepot";
   static const String CreationEntrepotRoute= "/creationEntrepot";
   static const String ListArticleRoute= "/listArticle";

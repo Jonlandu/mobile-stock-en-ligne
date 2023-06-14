@@ -88,22 +88,29 @@ class _ArticlePageState extends State<ArticlePage> {
           padding: EdgeInsets.symmetric(horizontal: 30, vertical: 2),
           child: MultiSelect(
             //--------customization selection modal-----------
-              buttonBarColor: Colors.red,
-              cancelButtonText: "Exit",
-              titleText: "Custom Title",
-              checkBoxColor: Colors.black,
-              selectedOptionsInfoText: "Selected custom text (tap to remove)",
-              selectedOptionsBoxColor: Colors.green,
+              buttonBarColor: Colors.black,
+              cancelButtonText: "Quitter",
+              titleText: "categories",
+              saveButtonColor : GlobalColors.orange,
+              cancelButtonColor : GlobalColors.orange,
+              checkBoxColor: GlobalColors.orange,
+              saveButtonTextColor : Colors.black,
+              clearButtonText : "supprimer",
+              clearButtonTextColor: Colors.black,
+              clearButtonColor : GlobalColors.orange,
+              selectedOptionsInfoText: "Selectionner une categorie",
+              selectedOptionsBoxColor: GlobalColors.orange,
+              selectedOptionsInfoTextColor : Colors.black,
               // autovalidateMode: AutovalidateMode.always,
               maxLength: 10, // optional
               //--------end customization selection modal------------
               validator: (dynamic value) {
                 if (value == null) {
-                  return 'Please select one or more option(s)';
+                  return 'selectionner au plus une option svp';
                 }
                 return null;
               },
-              errorText: 'Please select one or more option(s)',
+              errorText: 'selectionner une ou plusieurs categories ',
               dataSource:catCtrl.categoriesList.map((categorie) {
                 return {
                   "categorie": categorie.designation,

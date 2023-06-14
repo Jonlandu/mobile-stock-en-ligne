@@ -149,7 +149,7 @@ class _CategoriePageState extends State<CategoriePage> {
      print(response.status);
     if (response.status) {
       await Future.delayed(Duration(seconds: 2));
-      Navigator.pop(context,true);
+      Navigator.pushReplacementNamed(context, Routes.HomeRoute);
     } else {
       var msg =
       response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");
