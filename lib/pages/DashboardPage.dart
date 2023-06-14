@@ -21,6 +21,9 @@ class _DashboardPageState extends State<DashboardPage> {
   int _nbreArticle = 0;
   int _nbreCategorie = 0;
   late EntrepotModele _entrepot;
+  int _currentTabIndex = 0;
+  Color other = Colors.black;
+  Color selectedItem = GlobalColors.orange;
 
   void _compteArticle(BuildContext ctx) async {
     isVisible = true;
@@ -143,7 +146,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           Container(
                             width: 40,
                           ),
-                          _nombreCategorie(),
+
                         ],
                       ),
                       SizedBox(
@@ -377,6 +380,25 @@ class _DashboardPageState extends State<DashboardPage> {
             leading: Icon(Icons.call_to_action_outlined),
             title: Text('Mouvements')),
       ],
-    );
-  }
+    );}
+
+    Widget _footer(){
+      return BottomNavigationBar(
+        currentIndex: _currentTabIndex,
+        type: BottomNavigationBarType.fixed,
+        unselectedItemColor: other,
+        selectedItemColor: selectedItem,
+        items: [
+          BottomNavigationBarItem( icon: Icon(Icons.home),label: "Accueil"),
+          BottomNavigationBarItem( icon: Icon(Icons.category_outlined), label:"Catégories"),
+          BottomNavigationBarItem( icon: Icon(Icons.production_quantity_limits_rounded), label:"Articles"),
+          BottomNavigationBarItem( icon: Icon(Icons.settings),label: "Paramètre"),
+        ],
+        onTap: (int tabIndex) {
+          setState(() {
+            _currentTabIndex = tabIndex;
+          });
+        },
+      );
+    }
 }
