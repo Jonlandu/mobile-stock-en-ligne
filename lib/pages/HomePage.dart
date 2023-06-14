@@ -4,6 +4,7 @@ import 'package:squelette_mobile_parcours/Controllers/HomeController.dart';
 import 'package:squelette_mobile_parcours/pages/Entrepot/EntrepotPages.dart';
 import 'package:squelette_mobile_parcours/pages/ListArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/ListCategoriePage.dart';
+import 'package:squelette_mobile_parcours/pages/MouvementPage.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,6 +24,7 @@ class _HomePageState extends State<HomePage>{
     EntrepotPage(),
     ListCategoriePage(),
     ListArticlePage(),
+    MouvementPage(),
 
   ];
 
@@ -68,7 +70,7 @@ class _HomePageState extends State<HomePage>{
         BottomNavigationBarItem( icon: Icon(Icons.home),label: "Accueil"),
         BottomNavigationBarItem( icon: Icon(Icons.category_outlined), label:"Catégories"),
         BottomNavigationBarItem( icon: Icon(Icons.production_quantity_limits_rounded), label:"Articles"),
-        BottomNavigationBarItem( icon: Icon(Icons.settings),label: "Paramètre"),
+        BottomNavigationBarItem( icon: Icon(Icons.compare_arrows),label: "Mouvement"),
       ],
       onTap: (int tabIndex) {
         setState(() {

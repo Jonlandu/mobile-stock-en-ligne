@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:squelette_mobile_parcours/Model/EntrepotModele.dart';
 import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/HomePage.dart';
+import 'package:squelette_mobile_parcours/pages/MouvementPage.dart';
 
 import '../pages/CreerCategoriePage.dart';
 
@@ -58,6 +59,9 @@ class RoutesManager {
         var elt ={};
         var articleData=ArticleModel.fromJson(args ?? elt);
         return MaterialPageRoute(builder: (_)=> DetailsArticlePage(article: articleData));
+
+      case Routes.MovementPageRoute:
+        return MaterialPageRoute(builder: (_)=> MouvementPage());
 
 
       default:

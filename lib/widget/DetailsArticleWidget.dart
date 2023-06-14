@@ -62,7 +62,7 @@ class DetailContentWidget extends StatelessWidget {
               // Container(
               //   padding: EdgeInsets.only(left: 5),
               //   child: Text(
-              //     "Stock Actuel: ${detailsartcl.qte_stock} ${detailsartcl.unite} ",
+              //     "Stock Actuel: ${detailsartcl.} ${detailsartcl.unite} ",
               //     style: TextStyle(color: Colors.black, fontSize: 22,fontWeight: FontWeight.bold), ),
               // ),
         SizedBox(height: 120,),
@@ -79,7 +79,7 @@ class DetailContentWidget extends StatelessWidget {
               builder: (ctx) {
                 return TextButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, Routes.CreationMovementRoute);
+                    Navigator.pushNamed(context, Routes.CreationMovementRoute, arguments: detailsartcl.toJson());
                   },
                   child: Text(
                     "Operation",
