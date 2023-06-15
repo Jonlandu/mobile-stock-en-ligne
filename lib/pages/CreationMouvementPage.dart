@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/Controllers/MouvementController.dart';
 import 'package:squelette_mobile_parcours/Controllers/TypeMouvementController.dart';
+import 'package:squelette_mobile_parcours/Model/ArticleModel.dart';
 import '../utils/GlobalColors.dart';
 import '../utils/Routes.dart';
 import '../widget/ChargementWidget.dart';
 
 class CreationMouvementPage extends StatefulWidget {
-  const CreationMouvementPage({Key? key}) : super(key: key);
+  final ArticleModel article;
+  CreationMouvementPage({Key? key, required this.article}) : super(key: key);
 
   @override
   State<CreationMouvementPage> createState() => _CreationMouvementPageState();
@@ -19,16 +21,21 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
   var typeMouvement=0;
   var quantiteChamp = TextEditingController();
   var MotifChamp = TextEditingController();
-  var article = 1;
+  late ArticleModel _article;
 
+
+  Future<int> _repererArticleId (BuildContext cxt) async {
+    var id_article = _article.id ?? 0;
+    return id_article;
+  }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _article = widget.article;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _repererArticleId(context);
       var typeMouveCtrl = context.read<TypeMouvementCtrl>();
       typeMouveCtrl.recuperDataTypeMouvement();
-      print(typeMouveCtrl.typeMouvements);
     });
   }
 
@@ -235,18 +242,14 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
       "type": typeMouvement,
       "quantite": int.parse(quantiteChamp.text),
       "motif":MotifChamp.text,
-      "article_id":article
+      "article_id":_article.id
     };
-
-    print("dataNewMouvement == $dataNewMouvement");
 
     var res = await ctrl.envoieDataMouvement(dataNewMouvement);
     await Future.delayed(Duration(seconds: 3));
     isVisible = false;
 
     setState(() {});
-    print(res);
-    print('message ${res.data}');
 
     if (res.status && res.data?["status"]==true) {
       await Future.delayed(Duration(seconds: 2));
