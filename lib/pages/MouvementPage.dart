@@ -79,9 +79,9 @@ class _MouvementPageState extends State<MouvementPage> {
                           margin: EdgeInsets.only(top: 20),
                           padding: EdgeInsets.all(5),
                           width: double.infinity,
-                          height: double.infinity,
+                          height: 450,
                           child: ListView.builder(
-                            shrinkWrap: false,
+                            shrinkWrap: true,
                               itemCount: mouvementctrl.mouvements.length,
                               itemBuilder: (ctx,i){
                                 var mouv=mouvementctrl.mouvements[i];
