@@ -89,6 +89,7 @@ class _ArticlePageState extends State<ArticlePage> {
           child: MultiSelect(
             //--------customization selection modal-----------
               buttonBarColor: Colors.black,
+
               cancelButtonText: "Quitter",
               titleText: "categories",
               saveButtonColor : GlobalColors.orange,
@@ -310,6 +311,7 @@ class _ArticlePageState extends State<ArticlePage> {
           borderRadius: BorderRadius.circular(29),
           color: GlobalColors.greyChamp),
       child: TextFormField(
+        keyboardType: TextInputType.number,
          controller: txtstockminimal,
         validator: (val) => val!.isEmpty ? "Champ obligatoire" : null,
         decoration: InputDecoration(
@@ -333,6 +335,7 @@ class _ArticlePageState extends State<ArticlePage> {
           borderRadius: BorderRadius.circular(29),
           color: GlobalColors.greyChamp),
       child: TextFormField(
+        keyboardType: TextInputType.number,
          controller: txtstockinitial,
         validator: (val) => val!.isEmpty ? "Champ obligatoire" : null,
         decoration: InputDecoration(
@@ -395,7 +398,7 @@ class _ArticlePageState extends State<ArticlePage> {
     print(response.status);
     if (response.status) {
       await Future.delayed(Duration(seconds: 2));
-      Navigator.pushReplacementNamed(context, Routes.ListArticleRoute);
+      Navigator.pushReplacementNamed(context, Routes.HomeRoute);
     } else {
       var msg =
       response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");

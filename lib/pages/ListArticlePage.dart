@@ -147,7 +147,7 @@ class _ListArticlePage extends State<ListArticlePage> {
       backgroundColor: Colors.black,
       onPressed: () async {
         var back = await Navigator.pushNamed(
-            context, Routes.ArticlesRoute);
+            context, Routes.CreerArticlesRoute);
         if (back == true) {
           //setState(() {});
         }
