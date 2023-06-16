@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/Controllers/MouvementController.dart';
 import 'package:squelette_mobile_parcours/Controllers/TypeMouvementController.dart';
+import 'package:squelette_mobile_parcours/Model/ArticleModel.dart';
 import '../utils/GlobalColors.dart';
 import '../utils/Routes.dart';
 import '../widget/ChargementWidget.dart';
 
 class CreationMouvementPage extends StatefulWidget {
-  const CreationMouvementPage({Key? key}) : super(key: key);
+  final ArticleModel article;
+  CreationMouvementPage({Key? key, required this.article}) : super(key: key);
 
   @override
   State<CreationMouvementPage> createState() => _CreationMouvementPageState();
@@ -16,15 +18,22 @@ class CreationMouvementPage extends StatefulWidget {
 class _CreationMouvementPageState extends State<CreationMouvementPage> {
   bool isVisible = false;
   var formkey = GlobalKey<FormState>();
-  var typeMouvement = "-1";
+  var typeMouvement=0;
   var quantiteChamp = TextEditingController();
   var MotifChamp = TextEditingController();
+  late ArticleModel _article;
 
+
+  Future<int> _repererArticleId (BuildContext cxt) async {
+    var id_article = _article.id ?? 0;
+    return id_article;
+  }
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    _article = widget.article;
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _repererArticleId(context);
       var typeMouveCtrl = context.read<TypeMouvementCtrl>();
       typeMouveCtrl.recuperDataTypeMouvement();
     });
@@ -118,14 +127,16 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
 
   Widget _typeMouvement() {
     var typeMouveCtrl = context.watch<TypeMouvementCtrl>();
-    var renduList = typeMouveCtrl.typeMouvements.map((typeMouvement) {
 
+    var renduList = typeMouveCtrl.typeMouvements.map((typeMouvement) {
+      // print("typeMouvement === ${typeMouvement.designation}");
       return DropdownMenuItem(
         child: Text("${typeMouvement.designation}", style: TextStyle(fontWeight: FontWeight.bold)),
-        value:  "${typeMouvement.id}",
+        value:  typeMouvement.id,
       );
     }).toList();
-    print(typeMouveCtrl.typeMouvements.last.id);
+    // print("rendu list===== ${renduList}");
+    // print(typeMouveCtrl.typeMouvements);
     return Center(
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
@@ -142,10 +153,10 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
           ),
           value: typeMouvement,
           onChanged: (value) {
-            setState(() { typeMouvement = typeMouveCtrl.toString(); });
+            setState(() { typeMouvement = value!; });
           },
           items: [
-            DropdownMenuItem( child: Text("Type de mouvement", style: TextStyle(color: Colors.black54)), value: "-1"),
+            DropdownMenuItem( child: Text("Type de mouvement", style: TextStyle(color: Colors.black54)), value: 0),
            ...renduList
           ],
         ),
@@ -228,22 +239,30 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
 
     var ctrl = context.read<MouvementCtrl>();
     Map dataNewMouvement = {
-      "typeMouvementId": typeMouvement,
-      "quantite": quantiteChamp.text,
-      "motif":MotifChamp.text
+      "type": typeMouvement,
+      "quantite": int.parse(quantiteChamp.text),
+      "motif":MotifChamp.text,
+      "article_id":_article.id
     };
-    print(dataNewMouvement["typeMouvementId"]);
 
     var res = await ctrl.envoieDataMouvement(dataNewMouvement);
     await Future.delayed(Duration(seconds: 3));
     isVisible = false;
 
     setState(() {});
-    print(res);
 
-    if (res) {
+    if (res.status && res.data?["status"]==true) {
       await Future.delayed(Duration(seconds: 2));
       Navigator.pop(context, [true, Routes.EntrepotRoute]);
+    }else{
+      var msg =
+      res.isException == true ? res.errorMsg : (res.data?['message']);
+
+      print("mqg=====!!! : $msg");
+      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+          backgroundColor: Colors.red,
+          duration: const Duration(seconds: 5),
+          content: Text('$msg')));
     }
   }
 }

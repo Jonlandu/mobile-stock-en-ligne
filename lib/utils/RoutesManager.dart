@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:squelette_mobile_parcours/Model/EntrepotModele.dart';
 import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/HomePage.dart';
+import 'package:squelette_mobile_parcours/pages/MouvementPage.dart';
 
 import '../pages/CreerCategoriePage.dart';
 
@@ -48,7 +49,8 @@ class RoutesManager {
       case Routes.ListArticleRoute:
         return MaterialPageRoute(builder: (_)=> ListArticlePage());
       case Routes.CreationMovementRoute:
-        return MaterialPageRoute(builder: (_)=> CreationMouvementPage());
+        var args=r.arguments as Map?;
+        return MaterialPageRoute(builder: (_)=> CreationMouvementPage(article: ArticleModel.fromJson(args?? {}),));
       case Routes.CreerArticlesRoute:
         return MaterialPageRoute(builder: (_)=> ArticlePage());
       case Routes.CreerCategorieRoute :
@@ -58,6 +60,9 @@ class RoutesManager {
         var elt ={};
         var articleData=ArticleModel.fromJson(args ?? elt);
         return MaterialPageRoute(builder: (_)=> DetailsArticlePage(article: articleData));
+
+      case Routes.MovementPageRoute:
+        return MaterialPageRoute(builder: (_)=> MouvementPage());
 
 
       default:

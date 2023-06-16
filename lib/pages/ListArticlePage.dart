@@ -110,7 +110,7 @@ class _ListArticlePage extends State<ListArticlePage> {
                                 children: [
                                   Text(
                                     "${articleconvert.nomArticle}  "
-                                        "${articleconvert.stockMinimal}  "
+                                        "${articleconvert.stockInitial}  "
                                         "${articleconvert.unite}  ",
                                     style: TextStyle(
                                       color: Colors.black, fontSize: 20,
