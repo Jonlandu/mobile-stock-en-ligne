@@ -52,14 +52,17 @@ class _ArticlePageState extends State<ArticlePage> {
     }).toList();
     return Center(
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+        margin: EdgeInsets.symmetric(vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        width: 340,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(29),
+            color: GlobalColors.greyChamp),
         child: DropdownButtonFormField(
           decoration: InputDecoration(
             filled: true,
             fillColor: GlobalColors.greyChamp,
-            focusedBorder: _outlineborder(Colors.grey),
             focusColor: GlobalColors.greyChamp,
-            border: _outlineborder(Colors.grey),
           ),
           value: _value,
           onChanged: (value) {
@@ -85,11 +88,11 @@ class _ArticlePageState extends State<ArticlePage> {
     var catCtrl = context.watch<CategorieCtrl>();
     return Center(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 2),
+          margin: EdgeInsets.symmetric(vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: MultiSelect(
             //--------customization selection modal-----------
               buttonBarColor: Colors.black,
-
               cancelButtonText: "Quitter",
               titleText: "categories",
               saveButtonColor : GlobalColors.orange,
@@ -194,10 +197,6 @@ class _ArticlePageState extends State<ArticlePage> {
                     SizedBox(
                       height: 3,
                     ),
-                    _champDescription(),
-                    SizedBox(
-                      height: 3,
-                    ),
                     _champUnite(),
                     SizedBox(
                       height: 3,
@@ -220,8 +219,28 @@ class _ArticlePageState extends State<ArticlePage> {
                     _selectMultipleCategorie(),
                     SizedBox(
                       height: 4,
+                    ),SizedBox(
+                      height: 3,
+                    ),
+                    _champDescription(),
+                    SizedBox(
+                      height: 5,
                     ),
                     _buttoncreerArticle(),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: Container(
+                          height: 320,
+                        )),
+                    Container(
+                      height: 100,
+                      child: Image.asset("assets/orange.jpg"),
+                    ),
+                  ],)
                   ],
                 ),
               ),
@@ -401,12 +420,14 @@ class _ArticlePageState extends State<ArticlePage> {
       Navigator.pushReplacementNamed(context, Routes.HomeRoute);
     } else {
       var msg =
-      response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");
-      print("mqg=====!!! $msg");
+       response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");
+      // print("mqg=====!!! $msg");
       ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 5),
-          content: Text('$msg')));
+          content: Text('$msg')
+
+      ));
     }
     isVisible = false;
   }
