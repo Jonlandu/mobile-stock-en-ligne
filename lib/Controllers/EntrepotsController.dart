@@ -27,7 +27,7 @@ class EntrepotCtrl with ChangeNotifier {
     }
   }
 
-  Future<bool> envoieDataEntrepot(Map data) async{
+  Future<HttpResponse> envoieDataEntrepot(Map data) async{
     var url = "${Endpoints.entrepotEndpoint}";
     String? token=stockage?.read(StockageKeys.userToken);
     var reponse = await postData(url, data, token: token);
@@ -37,9 +37,8 @@ class EntrepotCtrl with ChangeNotifier {
 
       notifyListeners();
 
-      return true;
     }
-    return false;
+    return reponse;;
   }
 }
 
