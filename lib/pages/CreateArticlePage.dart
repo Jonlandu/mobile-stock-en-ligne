@@ -415,13 +415,13 @@ class _ArticlePageState extends State<ArticlePage> {
     await Future.delayed(Duration(seconds: 2));
     setState(() {});
     print(response.status);
-    if (response.status && response.data?["status"]==true) {
+    if (response.status) {
       await Future.delayed(Duration(seconds: 2));
       Navigator.pushReplacementNamed(context, Routes.HomeRoute);
     } else {
       var msg =
        response.isException == true ? response.errorMsg : (response.data?['message'] ?? "");
-      // print("mqg=====!!! $msg");
+       print("mqg=====!!! $msg");
       ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 5),
