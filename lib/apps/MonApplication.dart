@@ -22,6 +22,7 @@ class MonApplication extends StatelessWidget {
   Widget build(BuildContext context) {
     var user=box.read<Map>(StockageKeys.user);
     var usertoken=box.read<String?>(StockageKeys.userToken);
+    print("usertoken: $usertoken");
     return MultiProvider(
       providers:[
         ChangeNotifierProvider(create: (_)=> UserController(stockage: box)),
@@ -37,7 +38,9 @@ class MonApplication extends StatelessWidget {
         navigatorKey: alice.getNavigatorKey(),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: RoutesManager.route,
-        initialRoute: Routes.LoadingRoutes,
+          initialRoute: usertoken!=null?Routes.HomeRoute : Routes.LoginRoute,
+
+
       ),
     );
   }
