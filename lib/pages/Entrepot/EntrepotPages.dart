@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../Controllers/EntrepotsController.dart';
 import '../../Controllers/HomeController.dart';
-import '../../utils/GlobalColors.dart';
 import '../../utils/Routes.dart';
 
 class EntrepotPage extends StatefulWidget {
@@ -50,10 +49,31 @@ class EntrepotPageState extends State<EntrepotPage> {
   Widget _banner(){
    // var entrepotCtrl = context.watch<Entrepot_Ctrl>();
     return Container(
+      width: double.infinity,
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.orange.shade800,
+        borderRadius: BorderRadius.only(
+          //topLeft: Radius.circular(10),
+          //topRight: Radius.circular(10),
+            bottomLeft: Radius.circular(50),
+            bottomRight: Radius.circular(50)
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text( "Entrepôts", textAlign: TextAlign.start,
-          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 25),
+        child: Center(
+          child: Text( "Entrepots", textAlign: TextAlign.start,
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 25),
+          ),
         ),
       ),
     );
@@ -72,7 +92,7 @@ class EntrepotPageState extends State<EntrepotPage> {
               return Container(
                 padding: const EdgeInsets.all(4.0),
                 margin: EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(color: GlobalColors.orange, borderRadius: BorderRadius.circular(15)),
+                decoration: BoxDecoration(color: Colors.black45, borderRadius: BorderRadius.circular(15)),
                 child: TextButton(
                   child: ListTile(
                     title : Text("${EntrepotConvert.nom}", style: TextStyle(color: Colors.white, fontSize: 20),),
