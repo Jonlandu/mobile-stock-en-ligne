@@ -21,18 +21,41 @@ class _CreationEntrepotPageState extends State<CreationEntrepotPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _appBar(),
-      body: _body(),
+        body: Column(
+          children: [
+            Expanded(child: _body()),
+          ],
+        ),
     );
   }
+
   AppBar _appBar(){
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
+      iconTheme: IconThemeData(
+        color: Colors.black,),
       title: Text(
         "Créer un entrepôt",
         style: TextStyle(color: Colors.black, fontSize: 25),
       ),
+    );
+  }
+  Widget _banner(){
+    return Column(
+      children: [
+        Container(
+          width: double.infinity, height: 200,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(child: Image.asset("assets/des.JPG")),
+            ],
+          ),
+        ),
+        SizedBox(height: 30),
+      ],
     );
   }
   Widget _body(){
@@ -40,47 +63,41 @@ class _CreationEntrepotPageState extends State<CreationEntrepotPage> {
       children: [
         Container(
           child: SingleChildScrollView(
-            child: Container(
-              color: Colors.white,
-              child: Form(
-                key: formkey,
-                child: Column(
-                  children: [
-                    Container(width: double.infinity, height: 200,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(child: Image.asset("assets/des.JPG")),
-                        ],
-                      ),
-                    ),
-
-                    SizedBox(height: 30),
-
-                    _nomEntrepotChamp(),
-
-                    SizedBox(height: 30),
-
-                    _buttonValidation(),
-
-                    SizedBox(height: 7),
-
-                    Row(
+            child: Column(
+              children: [
+                SizedBox(height: 30),
+                _banner(),
+                Container(
+                  child: Form(
+                    key: formkey,
+                    child: Column(
                       children: [
-                        Align(
-                            alignment: Alignment.bottomRight,
-                            child: Container(height: 80, child: Image.asset("assets/orange.jpg"))),
+                        SizedBox(height: 30),
+                        _nomEntrepotChamp(),
+
+                        SizedBox(height: 30),
+                        _buttonValidation(),
+
+                        SizedBox(height: 160),
+                        _imgOrange(),
+
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
         ),
         ChargementWidget(isVisible)
       ],
     );
+  }
+
+  Widget _imgOrange(){
+    return Align(
+        alignment: Alignment.bottomRight,
+        child: Container(height: 80, child: Image.asset("assets/orange.jpg")));
   }
   Widget _nomEntrepotChamp() {
     return Container(

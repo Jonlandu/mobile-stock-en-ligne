@@ -61,7 +61,7 @@ class EntrepotPageState extends State<EntrepotPage> {
 
   Widget _entrepotBloc(){
     var entrepotCtrl = context.watch<EntrepotCtrl>();
-    print('entrepotCtrl.entrepots.length ${entrepotCtrl.entrepots.length}');
+    //print('entrepotCtrl.entrepots.length ${entrepotCtrl.entrepots.length}');
     return  Padding(
         padding: const EdgeInsets.all(20.0),
         child: ListView.builder(
