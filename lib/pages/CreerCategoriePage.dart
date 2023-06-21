@@ -149,7 +149,6 @@ class _CategoriePageState extends State<CategoriePage> {
     setState(() {});
     isVisible = true;
     var controller = context.read<CategorieCtrl>();
-    int a = 1;
     Map dataForCategorie = {
       "designation": txtDesignation.text,
     };
@@ -159,7 +158,7 @@ class _CategoriePageState extends State<CategoriePage> {
     await Future.delayed(Duration(seconds: 2));
     setState(() {});
      print(response.status);
-    if (response.status) {
+    if (response.status && response.data?["status"]==true) {
       await Future.delayed(Duration(seconds: 2));
       Navigator.pushReplacementNamed(context, Routes.HomeRoute);
     } else {
