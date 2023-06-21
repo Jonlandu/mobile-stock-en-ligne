@@ -4,6 +4,7 @@ import "package:squelette_mobile_parcours/Controllers/StatistiqueController.dart
 import "package:squelette_mobile_parcours/utils/GlobalColors.dart";
 import "package:squelette_mobile_parcours/utils/Routes.dart";
 
+import "../Controllers/UserController.dart";
 import "../Model/EntrepotModele.dart";
 import "../widget/ChargementWidget.dart";
 
@@ -79,20 +80,8 @@ class _DashboardPageState extends State<DashboardPage> {
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.notifications,
-              color: Colors.black,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.person,
-              color: Colors.black,
-            ),
-          ),
+          _logoutWidget(),
+
         ],
       ),
       body: Stack(
@@ -259,7 +248,15 @@ class _DashboardPageState extends State<DashboardPage> {
       ),
     ));
   }
-
+  Widget _logoutWidget(){
+    return IconButton(onPressed: (){
+      setState(() {});
+      var ctrl = context.read<UserController>();
+      Map data = {};
+      var res = ctrl.logout(data);
+      Navigator.pushReplacementNamed(context, Routes.LoginRoute);
+    }, icon: Icon(Icons.logout, color: Colors.black,));
+  }
   Widget _nombreCollaborateur() {
     return Expanded(
         child: Container(

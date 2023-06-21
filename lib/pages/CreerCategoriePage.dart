@@ -50,6 +50,18 @@ class _CategoriePageState extends State<CategoriePage> {
                       width: double.infinity,
                       height: 10,
                     ),
+                    Container(
+                      width: double.infinity,
+                      height: 120,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            child: Image.asset("assets/des.JPG"),
+                          )
+                        ],
+                      ),
+                    ),
                     SizedBox(height: 10,),
                     SizedBox(height: 10,),
                     _champDesignation(),
@@ -58,16 +70,16 @@ class _CategoriePageState extends State<CategoriePage> {
                     SizedBox(height: 25,),
                     _buttoncreerCategorie(),
                     SizedBox(
-                      height: 100,
+                      height: 40,
                     ),
                     Row(
                       children: [
                         Expanded(
                             child: Container(
-                              height: 410,
+                              height: 390,
                             )),
                         Container(
-                          height: 120,
+                          height: 100,
                           child: Image.asset("assets/orange.jpg"),
                         ),
                       ],

@@ -15,6 +15,7 @@ class Routes {
   static const String DetailsArticleRoute= "/DetailsArticle";
   static const String CreationMovementRoute= "/creationMouvement";
   static const String MovementPageRoute= "/MouvementPage";
+  static const String LogoutRoute= "/logout";
 
 
 
