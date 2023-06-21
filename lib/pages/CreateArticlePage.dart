@@ -415,7 +415,7 @@ class _ArticlePageState extends State<ArticlePage> {
     await Future.delayed(Duration(seconds: 2));
     setState(() {});
     print(response.status);
-    if (response.status) {
+    if (response.status && response.data?["status"]==true) {
       await Future.delayed(Duration(seconds: 2));
       Navigator.pushReplacementNamed(context, Routes.HomeRoute);
     } else {
