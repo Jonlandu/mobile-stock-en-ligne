@@ -162,11 +162,11 @@ class _CreationEntrepotPageState extends State<CreationEntrepotPage> {
     setState(() {});
     print(res);
 
-    if (res) {
+    if (res.status && res.data?["status"]==true) {
       await Future.delayed(Duration(seconds: 2));
       Navigator.pop(context, [true, Routes.EntrepotRoute]);
     }
-    /*else {
+    else {
       var msg =
       res.isException == true ? res.errorMsg : (res.data?['message'] ?? "");
 
@@ -175,7 +175,7 @@ class _CreationEntrepotPageState extends State<CreationEntrepotPage> {
           backgroundColor: Colors.red,
           duration: const Duration(seconds: 5),
           content: Text('$msg')));
-    }*/
+    }
 
 
     //Navigator.pop(context, Routes.EntrepotRoute);
