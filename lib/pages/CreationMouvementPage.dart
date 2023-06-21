@@ -57,6 +57,8 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
+      iconTheme: IconThemeData(
+        color: Colors.black,),
       title: Text(
         "Créer un mouvement",
         style: TextStyle(color: Colors.black, fontSize: 25),
@@ -77,7 +79,7 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
         ),
         SizedBox(height: 8),
         Container(
-          child: Text("NomCategorie || NomArticle", style: TextStyle(fontSize: 20),),
+          child: Text("${_article.nomArticle}", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
         )
       ],
     );
@@ -88,6 +90,7 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
         SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(height: 30),
               _banner(),
               Container(
                 child: Form(
@@ -102,15 +105,9 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
                       SizedBox(height: 30),
                       _buttonValidation(),
 
-                      SizedBox(height: 7),
+                      SizedBox(height: 40),
+                      _imgOrange(),
 
-                      Row(
-                        children: [
-                          Align(
-                              alignment: Alignment.bottomRight,
-                              child: Container(height: 80, child: Image.asset("assets/orange.jpg"))),
-                        ],
-                      ),
                     ],
                   ),
                 ),
@@ -124,19 +121,19 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
   }
 
 
-
+  Widget _imgOrange(){
+    return Align(
+        alignment: Alignment.bottomRight,
+        child: Container(height: 80, child: Image.asset("assets/orange.jpg")));
+  }
   Widget _typeMouvement() {
     var typeMouveCtrl = context.watch<TypeMouvementCtrl>();
-
     var renduList = typeMouveCtrl.typeMouvements.map((typeMouvement) {
-      // print("typeMouvement === ${typeMouvement.designation}");
       return DropdownMenuItem(
         child: Text("${typeMouvement.designation}", style: TextStyle(fontWeight: FontWeight.bold)),
         value:  typeMouvement.id,
       );
     }).toList();
-    // print("rendu list===== ${renduList}");
-    // print(typeMouveCtrl.typeMouvements);
     return Center(
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10),
@@ -146,10 +143,12 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
             borderRadius: BorderRadius.circular(29),
             color: GlobalColors.greyChamp),
         child: DropdownButtonFormField(
+          focusColor: GlobalColors.greyChamp,
           decoration: InputDecoration(
-            filled: true,
-            fillColor: GlobalColors.greyChamp,
-            focusColor: GlobalColors.greyChamp,
+            icon: Icon(Icons.compare_arrows,color: Colors.black45,),
+            // filled: false,
+            // fillColor: GlobalColors.greyChamp,
+            // focusColor: GlobalColors.greyChamp,
           ),
           value: typeMouvement,
           onChanged: (value) {
@@ -176,7 +175,7 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
         controller: quantiteChamp,
         validator: (val) =>
         val!.isEmpty ? "Champ obligatoire" : null,
-        decoration: InputDecoration(icon: Icon(Icons.edit,color: Colors.black45,),
+        decoration: InputDecoration(icon: Icon(Icons.numbers_outlined,color: Colors.black45,),
           hintText: "Quantité",
           border: InputBorder.none,
         ),
@@ -197,7 +196,7 @@ class _CreationMouvementPageState extends State<CreationMouvementPage> {
         controller: MotifChamp,
         validator: (val) =>
         val!.isEmpty ? "Champ obligatoire" : null,
-        decoration: InputDecoration(icon: Icon(Icons.edit,color: Colors.black45,),
+        decoration: InputDecoration(icon: Icon(Icons.description_outlined,color: Colors.black45,),
           hintText: "Motif du mouvement",
           border: InputBorder.none,
         ),
