@@ -7,6 +7,9 @@ import 'package:squelette_mobile_parcours/pages/ListCategoriePage.dart';
 import 'package:squelette_mobile_parcours/pages/MouvementPage.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
 
+import '../Controllers/UserController.dart';
+import '../utils/Routes.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -46,14 +49,13 @@ class _HomePageState extends State<HomePage>{
       //Text("Stock Online",style: TextStyle(color: Colors.black)),elevation: 0,
       backgroundColor: Colors.white,
       actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.notifications,color: Colors.black,),
-        ),
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.person,color: Colors.black,),
-        ),
+        IconButton(onPressed: (){
+          setState(() {});
+          var ctrl = context.read<UserController>();
+          Map data = {};
+          var res = ctrl.logout(data);
+          Navigator.pushReplacementNamed(context, Routes.LoginRoute);
+        }, icon: Icon(Icons.logout, color: Colors.black,)),
         SizedBox(width: 20)
       ],
     );
@@ -67,7 +69,8 @@ class _HomePageState extends State<HomePage>{
       unselectedItemColor: other,
       selectedItemColor: selectedItem,
       items: [
-        BottomNavigationBarItem( icon: Icon(Icons.home),label: "Accueil"),
+        // BottomNavigationBarItem( icon: Icon(Icons.home),label: "Accueil"),
+        BottomNavigationBarItem( icon: Icon(Icons.store_outlined),label: "Entrepot"),
         BottomNavigationBarItem( icon: Icon(Icons.category_outlined), label:"Catégories"),
         BottomNavigationBarItem( icon: Icon(Icons.production_quantity_limits_rounded), label:"Articles"),
         BottomNavigationBarItem( icon: Icon(Icons.compare_arrows),label: "Mouvement"),
