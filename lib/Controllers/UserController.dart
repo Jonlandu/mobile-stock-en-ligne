@@ -44,4 +44,14 @@ class UserController with ChangeNotifier{
 
 
   }
+  Future<HttpResponse> logout(Map data) async{
+    var url="${Endpoints.logoutEndpoint}";
+
+    Future<void>? token=stockage?.remove(StockageKeys.userToken);
+
+    var response = await postData(url, data);
+
+
+    return response;
+  }
 }

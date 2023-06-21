@@ -65,6 +65,7 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_)=> MouvementPage());
 
 
+
       default:
         return MaterialPageRoute(builder: (_) => TemplatePage());
     }
