@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/Controllers/HomeController.dart';
 import 'package:squelette_mobile_parcours/pages/Entrepot/EntrepotPages.dart';
-import 'package:squelette_mobile_parcours/pages/ListArticlePage.dart';
-import 'package:squelette_mobile_parcours/pages/ListCategoriePage.dart';
-import 'package:squelette_mobile_parcours/pages/MouvementPage.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
 
 import '../Controllers/UserController.dart';
 import '../utils/Routes.dart';
+import 'Articles/ArticleListPage.dart';
+import 'Categories/CategorieListPage.dart';
+import 'Mouvements/MouvementListPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

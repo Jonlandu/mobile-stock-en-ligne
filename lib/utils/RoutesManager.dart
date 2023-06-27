@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:squelette_mobile_parcours/Model/EntrepotModele.dart';
 import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/HomePage.dart';
-import 'package:squelette_mobile_parcours/pages/MouvementPage.dart';
 
+import '../pages/Articles/ArticleDetailsPage.dart';
+import '../pages/Articles/ArticleListPage.dart';
+import '../pages/Categories/CategorieListPage.dart';
 import '../pages/CreerCategoriePage.dart';
 
 import 'package:squelette_mobile_parcours/Model/ArticleModel.dart';
@@ -11,15 +13,13 @@ import 'package:squelette_mobile_parcours/pages/Auth/LoginPage.dart';
 import 'package:squelette_mobile_parcours/pages/Auth/RegisterPage.dart';
 import 'package:squelette_mobile_parcours/pages/CreerCategoriePage.dart';
 import 'package:squelette_mobile_parcours/pages/DashboardPage.dart';
-import 'package:squelette_mobile_parcours/pages/DetailsArticlePage.dart';
-import 'package:squelette_mobile_parcours/pages/ListArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/LoadingPage.dart';
 import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 import '../pages/CreationMouvementPage.dart';
 import '../pages/DashboardPage.dart';
 import '../pages/Entrepot/CreationEntrepotPage.dart';
 import '../pages/Entrepot/EntrepotPages.dart';
-import '../pages/ListCategoriePage.dart';
+import '../pages/Mouvements/MouvementListPage.dart';
 import '../pages/TemplatePage.dart';
 import 'Routes.dart';
 
@@ -62,6 +62,8 @@ class RoutesManager {
         return MaterialPageRoute(builder: (_)=> DetailsArticlePage(article: articleData));
 
       case Routes.MovementPageRoute:
+        var args=r.arguments as Map?;
+        var elt ={};
         return MaterialPageRoute(builder: (_)=> MouvementPage());
 
 

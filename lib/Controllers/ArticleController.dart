@@ -35,7 +35,7 @@ class ArticleCtrl with ChangeNotifier {
   return response;
  }
 
- void recupererDataArticles() async{
+Future recupererDataArticles() async{
   var url = "${Endpoints.showArticlesEndpoints}";
   String? token=stockage?.read(StockageKeys.userToken);
   loading = true;
