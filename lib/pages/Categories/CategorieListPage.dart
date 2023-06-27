@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
 import 'package:squelette_mobile_parcours/utils/Routes.dart';
 
-import '../Controllers/HomeController.dart';
+import '../../Controllers/HomeController.dart';
 
 class ListCategoriePage extends StatefulWidget {
   const ListCategoriePage({Key? key}) : super(key: key);
@@ -48,7 +48,6 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
     return AppBar();
   }
   Widget _banner(){
-    // var entrepotCtrl = context.watch<Entrepot_Ctrl>();
     return Container(
       width: double.infinity,
       height: 50,
@@ -73,7 +72,7 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
         padding: const EdgeInsets.all(8.0),
         child: Center(
           child: Text( "Categories", textAlign: TextAlign.start,
-            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 25),
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20),
           ),
         ),
       ),
@@ -85,7 +84,7 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
     var categoriectrl = context.watch<CategorieCtrl>();
     print('${categoriectrl.categoriesList.length}');
     return ListView(
-      padding: EdgeInsets.all(8.0),
+      padding: EdgeInsets.all(5.0),
         children:[ ListView.builder(
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
@@ -95,9 +94,10 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
 
               return Column(
                 children: [SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                   Container(
+                    alignment: Alignment.topCenter,
                     width: double.infinity,
                     height: 60,
                     decoration: BoxDecoration(
@@ -117,11 +117,36 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
                         ),
                       ],
                     ),
-                    child: ListTile(
-                        //leading: Icon(Icons.shopping_cart),
+                    child:TextButton(
+
+                      child: ListTile(
                         trailing: Icon(Icons.arrow_forward_ios_outlined),
-                        title: Text("${categorieconvert.designation}",
-                          style: TextStyle(color: Colors.black, fontSize: 22),),),
+                        title: Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text("${categorieconvert.designation}",
+                                  style: TextStyle(
+                                    color: Colors.black, fontSize: 20,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+
+
+                        //trailing: IconButton(onPressed:(){
+                        //Navigator.push(context, MaterialPageRoute(builder: (_)=>FormFidelePage(fidele_id: f.id,)));
+                        //}, icon:Icon(Icons.arrow_circle_right)),
+                        //leading: f.image != null? Image.network("${Constantes.BASE_URL}/${(f.image!)}"):Icon(Icons.error),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, Routes.HomeRoute);
+                        var ctrl = context.read<HomeController>();
+                        ctrl.currentTabIndex=1;
+                      },
+                    ),
                   ),
                 ],
               );
