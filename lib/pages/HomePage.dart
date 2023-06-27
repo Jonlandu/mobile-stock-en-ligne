@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/Controllers/HomeController.dart';
+import 'package:squelette_mobile_parcours/pages/AccueilPage.dart';
 import 'package:squelette_mobile_parcours/pages/Entrepot/EntrepotPages.dart';
 import 'package:squelette_mobile_parcours/pages/ListArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/ListCategoriePage.dart';
@@ -24,6 +25,7 @@ class _HomePageState extends State<HomePage>{
   Color selectedItem = GlobalColors.orange;
 
   final pages=[
+    AccueilPage(),
     EntrepotPage(),
     ListCategoriePage(),
     ListArticlePage(),
@@ -45,8 +47,6 @@ class _HomePageState extends State<HomePage>{
       leadingWidth: 0,
       elevation: 0,
       title: Container(height: 50, child: Image.asset("assets/orange.jpg")),
-      //Icon(Icons.data_thresholding_rounded, color: GlobalColors.orange, size: 50,),
-      //Text("Stock Online",style: TextStyle(color: Colors.black)),elevation: 0,
       backgroundColor: Colors.white,
       actions: [
         IconButton(onPressed: (){
@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage>{
       unselectedItemColor: other,
       selectedItemColor: selectedItem,
       items: [
-        // BottomNavigationBarItem( icon: Icon(Icons.home),label: "Accueil"),
+        BottomNavigationBarItem( icon: Icon(Icons.home),label: "Accueil"),
         BottomNavigationBarItem( icon: Icon(Icons.store_outlined),label: "Entrepot"),
         BottomNavigationBarItem( icon: Icon(Icons.category_outlined), label:"Catégories"),
         BottomNavigationBarItem( icon: Icon(Icons.production_quantity_limits_rounded), label:"Articles"),
