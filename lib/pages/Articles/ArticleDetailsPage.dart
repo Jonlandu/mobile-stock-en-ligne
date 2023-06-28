@@ -61,7 +61,7 @@ class _DetailsArticlePage extends State<DetailsArticlePage> {
       ),
       // changer la couleur ici
       title: Padding(
-        padding: EdgeInsets.only(left: 100),
+        padding: EdgeInsets.only(left: 0),
         child: Text("${_article.nomArticle}", style: TextStyle(color: Colors.orange,fontSize: 26),),
       ),
       backgroundColor: Colors.white,

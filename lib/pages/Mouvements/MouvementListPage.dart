@@ -86,14 +86,23 @@ class _MouvementPageState extends State<MouvementPage> {
                         itemCount: mouvementctrl.mouvements.length,
                         itemBuilder: (ctx,i){
                           var mouv=mouvementctrl.mouvements[i];
+                          var defaultIcon=
+                              Icon(Icons.arrow_back_outlined,color: Colors.green,);
+                          if(mouv.etat == "S"){
+                            defaultIcon=Icon(Icons.arrow_forward_outlined, color: Colors.red,);
+                          }
                           return Column(
                             children: [
                               Container(
                                   child: ListTile(
                                     leading:Icon(Icons.compare_arrows),
-                                    title: Text("${mouv.quantique}   ${widget.article?.nomArticle}   ${mouv.motif}  ",
+                                    title: Text("${mouv.nom_article}   ${mouv.motif}",
                                       style: TextStyle(color: Colors.black, fontSize: 22),),
                                     subtitle: Text("${mouv.created_at}"),
+                                    trailing: Column(children: [
+                                      defaultIcon,
+                                      Text("${mouv.quantique}  ${mouv.unite}")
+                                    ],),
                                   )
                               ),
 

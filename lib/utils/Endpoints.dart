@@ -17,6 +17,7 @@ class Endpoints {
   static const String typeMouvementEndpoint = "/api/type";
   static const String mouvementEndpoint = "/api/mouvement";
   static const String mouvementsRecentEndpoint = "/api/mouvement_recent";
+  static const String articlesParCategorieEndpoint = "/api/mouvement/article/";
 
 
 }
