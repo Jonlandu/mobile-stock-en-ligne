@@ -16,18 +16,12 @@ class MouvementCtrl with ChangeNotifier {
   Future<HttpResponse> envoieDataMouvement(Map data) async {
     var url = "${Endpoints.mouvementEndpoint}";
     var _token = stockage?.read(StockageKeys.userToken);
-
-    print("token ==== $_token");
     var reponse = await postData(url, data, token: _token);
-    print(reponse.data);
     if (reponse.status && reponse.data?['status'] == true) {
-    /*  var tempo = MouvementModel.fromJson(reponse.data?["mouvement"]);
-      mouvements.add(tempo);
-      print("reponse === $reponse");
-      notifyListeners();*/
     }
     return reponse;
   }
+
   void recupererDataMouvement() async{
     var url = "${Endpoints.mouvementEndpoint}";
     String? token=stockage?.read(StockageKeys.userToken);
@@ -44,7 +38,20 @@ class MouvementCtrl with ChangeNotifier {
     notifyListeners();
   }
 
-
+  Future recupererDataMouvementRecent() async{
+    var url = "${Endpoints.mouvementsRecentEndpoint}";
+    String? token=stockage?.read(StockageKeys.userToken);
+    loading = true;
+    notifyListeners();
+    var response = await getData(url, token: token);
+    if(response!=null){
+      List<MouvementModel> DataMouvementsRecent = response.map<MouvementModel>((e) => MouvementModel.fromJson(e)).toList();
+      mouvements = DataMouvementsRecent;
+      notifyListeners();
+    }
+    loading = false;
+    notifyListeners();
+  }
 
 }
 
