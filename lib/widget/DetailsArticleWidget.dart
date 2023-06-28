@@ -1,13 +1,20 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
+import 'package:provider/provider.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
 
+import '../Controllers/ArticleController.dart';
 import '../Model/ArticleModel.dart';
 import '../utils/Routes.dart';
 
 class DetailContentWidget extends StatelessWidget {
-  ArticleModel detailsartcl;
-  DetailContentWidget({required this.detailsartcl});
+  ArticleModel article;
+  Function(ArticleModel) refreshArticle;
+
+
+  DetailContentWidget({required  this.article, required this.refreshArticle});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +24,7 @@ class DetailContentWidget extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(15),
           width: double.infinity,
-          height: 500,
+          // height: 340,
           decoration: BoxDecoration(
             color: GlobalColors.greyChamp,
             borderRadius: BorderRadius.only(
@@ -39,57 +46,72 @@ class DetailContentWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             //mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
-                padding: EdgeInsets.only(left: 5),
-                child: Text(
-                  "${detailsartcl.nomArticle}",
-                  style: TextStyle(color: Colors.black, fontSize: 28,fontWeight: FontWeight.bold),),
-              ),
+              // Container(
+              //   padding: EdgeInsets.only(left: 5),
+              //   child: Text(
+              //     "${article.nomArticle}",
+              //     style: TextStyle(color: Colors.black, fontSize: 28,fontWeight: FontWeight.bold),),
+              // ),
               SizedBox(height: 10,),
               Container(
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  "Stock Minimale : ${detailsartcl.stockMinimal} ${detailsartcl.unite}" ,
+                  "Stock Minimale : ${article.stockMinimal} ${article.unite}" ,
                   style: TextStyle(color: Colors.black, fontSize: 22),),
               ),
               Container(
+
+                padding: EdgeInsets.only(left: 5),
+
+                child: Text(
+                  "Stock Initiale: ${article.stockInitial} ${article.unite} ",
+                  style: TextStyle(color: Colors.black, fontSize: 22),),
+
+              ),
+              SizedBox(height: 20,),
+              Container(
                 padding: EdgeInsets.only(left: 5),
                 child: Text(
-                  "Stock Initiale: ${detailsartcl.stockInitial} ${detailsartcl.unite} ",
-                  style: TextStyle(color: Colors.black, fontSize: 22),),
+                  "Stock Actuel: ${article.solde} ${article.unite} ",
+                  style: TextStyle(color: Colors.black, fontSize: 22,fontWeight: FontWeight.bold), ),
               ),
-              SizedBox(height: 40,),
-              // Container(
-              //   padding: EdgeInsets.only(left: 5),
-              //   child: Text(
-              //     "Stock Actuel: ${detailsartcl.} ${detailsartcl.unite} ",
-              //     style: TextStyle(color: Colors.black, fontSize: 22,fontWeight: FontWeight.bold), ),
-              // ),
-        SizedBox(height: 120,),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: 10,),
-          padding:
-          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          width: 250,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(29),
-              color: GlobalColors.orange),
-          height: 50,
-          child: Builder(
-              builder: (ctx) {
-                return TextButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, Routes.CreationMovementRoute, arguments: detailsartcl.toJson());
-                  },
-                  child: Text(
-                    "Operation",
-                    style:
-                    TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                );
-              }
-          ),
-        ), ],
+              SizedBox(height: 180,),
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10,),
+                padding:
+                EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                width: 250,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(29),
+                    color: GlobalColors.orange),
+                height: 50,
+                child: Builder(
+                    builder: (ctx) {
+                      return TextButton(
+                        onPressed: ()async{
+                          var res = await Navigator.pushNamed(context, Routes.CreationMovementRoute, arguments: article.toJson());
+                          if(res!=null){
+                            var ctrl= ctx.read<ArticleCtrl>();
+                            await ctrl.recupererDataArticles();
+                            var newArtilces=ctrl.articledataList;
+                            var articleSearch=newArtilces.where((e) => e.id == article.id).toList();
+                            if(articleSearch.isNotEmpty){
+                              var newArticle=articleSearch[0];
+                              refreshArticle(newArticle);
+                            }
+                          }
+                        },
+
+
+                        child: Text(
+                          "Operation",
+                          style:
+                          TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      );
+                    }
+                ),
+              ), ],
           ),
         ),
       ),
