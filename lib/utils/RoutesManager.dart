@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:squelette_mobile_parcours/Model/EntrepotModele.dart';
+import 'package:squelette_mobile_parcours/pages/Articles/ArticleParCategorie.dart';
 import 'package:squelette_mobile_parcours/pages/CreateArticlePage.dart';
 import 'package:squelette_mobile_parcours/pages/HomePage.dart';
 
@@ -65,6 +66,11 @@ class RoutesManager {
         var args=r.arguments as Map?;
         var elt ={};
         return MaterialPageRoute(builder: (_)=> MouvementPage());
+      case Routes.ArticleParCategorie:
+        var args=r.arguments as Map?;
+        var elt ={};
+        var articleCategorieData=ArticleModel.fromJson(args ?? elt);
+        return MaterialPageRoute(builder: (_)=> ListArticleParCategoriePage(categorie: articleCategorieData,));
 
 
 

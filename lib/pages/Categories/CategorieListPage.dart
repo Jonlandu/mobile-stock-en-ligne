@@ -142,9 +142,9 @@ class _ListCategoriePageState extends State<ListCategoriePage> {
                         //leading: f.image != null? Image.network("${Constantes.BASE_URL}/${(f.image!)}"):Icon(Icons.error),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, Routes.HomeRoute);
-                        var ctrl = context.read<HomeController>();
-                        ctrl.currentTabIndex=1;
+                        Navigator.pushNamed(context, Routes.ArticleParCategorie);
+                        //var ctrl = context.read<HomeController>();
+                        //ctrl.currentTabIndex=1;
                       },
                     ),
                   ),

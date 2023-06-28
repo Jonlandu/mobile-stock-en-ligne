@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:path/path.dart';
 import 'package:squelette_mobile_parcours/Model/ArticleModel.dart';
 import '../Model/ArticleModel.dart';
 import '../utils/Endpoints.dart';
@@ -49,6 +50,23 @@ Future recupererDataArticles() async{
   notifyListeners();
  }
 
+ Future recupererDataArticlesParCategorie(int categorie_id) async{
+   var url = "${Endpoints.articlesParCategorieEndpoint}$categorie_id";
+   String? token=stockage?.read(StockageKeys.userToken);
+   loading = true;
+   notifyListeners();
+   var response = await getData(url, token: token);
+   if(response!=null){
+
+     List<ArticleModel> DataArticleParCategorie = response.map<ArticleModel>((e) => ArticleModel.fromJson(e)).toList();
+     articledataList = DataArticleParCategorie;
+
+     notifyListeners();
+   }
+   loading = false;
+   notifyListeners();
+ }
+
 
  Future recupererDataArticleRecent() async{
    var url = "${Endpoints.articlesRecentEndpoint}";
@@ -77,5 +95,6 @@ void main() {
   'stock_initial' : 10,
   'categorie_id'  : 1,
  };
- c.recupererDataArticles();
+ c.recupererDataArticlesParCategorie(0);
+ print('lien : ${url}');
 }

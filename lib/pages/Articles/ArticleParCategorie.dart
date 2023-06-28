@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart' as path;
 import 'package:provider/provider.dart';
+import 'package:squelette_mobile_parcours/Controllers/CategorieController.dart';
+import 'package:squelette_mobile_parcours/Model/ArticleModel.dart';
 import 'package:squelette_mobile_parcours/utils/GlobalColors.dart';
 import '../../Controllers/ArticleController.dart';
 import '../../Controllers/HomeController.dart';
@@ -8,21 +10,33 @@ import '../../utils/Routes.dart';
 
 
 
-class ListArticlePage extends StatefulWidget {
-  const ListArticlePage({Key? key}) : super(key: key);
+class ListArticleParCategoriePage extends StatefulWidget {
+  final ArticleModel categorie;
+   ListArticleParCategoriePage({Key? key, required this.categorie}) : super(key: key);
 
   @override
-  State<ListArticlePage> createState() => _ListArticlePage();
+  State<ListArticleParCategoriePage> createState() => _ListArticleParCategoriePage();
 }
 
-class _ListArticlePage extends State<ListArticlePage> {
+class _ListArticleParCategoriePage extends State<ListArticleParCategoriePage> {
+
+  late ArticleModel _categorie;
+
+  void _recupId()async{
+    var ctrl= context.read<ArticleCtrl>();
+    var catctrl= context.read<CategorieCtrl>();
+    catctrl.recupererDataCategorie();
+    var categorie_id=_categorie.id ?? 0;
+    var res = await ctrl.recupererDataArticlesParCategorie(categorie_id);
+    print(res);
+  }
 
   @override
   void initState() {
+    _categorie = widget.categorie;
     //chargement avant l'execution du builder
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      var articleCtrl = context.read<ArticleCtrl>();
-      articleCtrl.recupererDataArticles();
+      _recupId();
     });
   }
 
@@ -30,21 +44,34 @@ class _ListArticlePage extends State<ListArticlePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          _banner(),
-          _body(context),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            _banner(),
+            _body(context),
+          ],
+        ),
       ),
-
-      //appBar: _appBar(),
-      floatingActionButton: _floatBtn(),
+      appBar: _appBar(),
+      //floatingActionButton: _floatBtn(),
 
     );
   }
 
   AppBar _appBar() {
-    return AppBar();
+    return AppBar(
+      iconTheme: IconThemeData(
+        color: Colors.orange,
+      ),
+      // changer la couleur ici
+      title: Padding(
+        padding: EdgeInsets.only(left: 0),
+        child: Text("${_categorie.nomArticle}", style: TextStyle(color: Colors.orange,fontSize: 26),),
+      ),
+      backgroundColor: Colors.white,
+
+      actions: [],
+    );
   }
 
   Widget _body(BuildContext context) {
