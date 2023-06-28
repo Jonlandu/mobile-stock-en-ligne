@@ -29,9 +29,6 @@ class ArticleCtrl with ChangeNotifier {
 
    notifyListeners();
   }
-  print(response.data);
-  print(response.status);
-  print(response);
   return response;
  }
 
@@ -47,12 +44,29 @@ Future recupererDataArticles() async{
    articledataList = DataArticle;
 
    notifyListeners();
-   print(DataArticle[0]);
   }
   loading = false;
   notifyListeners();
  }
+
+
+ Future recupererDataArticleRecent() async{
+   var url = "${Endpoints.articlesRecentEndpoint}";
+   String? token=stockage?.read(StockageKeys.userToken);
+   loading = true;
+   notifyListeners();
+   var response = await getData(url, token: token);
+   if(response!=null){
+     List<ArticleModel> DataMouvementsRecent = response.map<ArticleModel>((e) => ArticleModel.fromJson(e)).toList();
+     articledataList = DataMouvementsRecent;
+     notifyListeners();
+   }
+   loading = false;
+   notifyListeners();
+ }
+
 }
+
 void main() {
  var c = ArticleCtrl();
  Map data = {
