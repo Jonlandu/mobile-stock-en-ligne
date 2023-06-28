@@ -91,9 +91,9 @@ class _MouvementPageState extends State<MouvementPage> {
                               Container(
                                   child: ListTile(
                                     leading:Icon(Icons.compare_arrows),
-                                    title: Text("${mouv.quantite}   ${widget.article?.nomArticle}   ${mouv.motif}  ",
+                                    title: Text("${mouv.quantique}   ${widget.article?.nomArticle}   ${mouv.motif}  ",
                                       style: TextStyle(color: Colors.black, fontSize: 22),),
-                                    subtitle: Text("${mouv.createdAt}"),
+                                    subtitle: Text("${mouv.created_at}"),
                                   )
                               ),
 

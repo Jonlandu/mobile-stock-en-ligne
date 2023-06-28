@@ -17,6 +17,8 @@ class ArticleModel {
   int? stockInitial;
   int? entrepot_id;
   int? solde;
+  DateTime? created_at;
+  DateTime? updated_at;
 
   ArticleModel({
     this.id,
@@ -26,7 +28,9 @@ class ArticleModel {
     this.stockMinimal,
     this.stockInitial,
     this.entrepot_id,
-    this.solde
+    this.solde,
+    this.created_at,
+    this.updated_at
 
   });
 
@@ -38,8 +42,9 @@ class ArticleModel {
     stockMinimal: json["stock_minimal"],
     stockInitial: json["stock_initial"],
     entrepot_id: json["categorie_id"],
-    solde: json["solde"]
-
+    solde: json["solde"],
+    created_at: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updated_at: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"])
   );
 
   Map<String, dynamic> toJson() => {
@@ -50,7 +55,8 @@ class ArticleModel {
     "stock_minimal": stockMinimal,
     "stock_initial": stockInitial,
     "entrepot_id": entrepot_id,
-    "solde": solde
-
+    "solde": solde,
+    "created_at": created_at?.toIso8601String(),
+    "updated_at": updated_at?.toIso8601String()
   };
 }

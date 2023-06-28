@@ -34,15 +34,9 @@ class EntrepotPageState extends State<EntrepotPage> {
           //SizedBox(height: 20),
           _banner(),
           Expanded(child: _entrepotBloc()),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: _floatBtn(),
-            ),
-          )
         ],
       ),
+        floatingActionButton: _floatBtn(),
     );
   }
 
@@ -117,7 +111,7 @@ class EntrepotPageState extends State<EntrepotPage> {
             context, Routes.CreationEntrepotRoute);
         if (back == true) {
           var ctrl = context.read<HomeController>();
-          ctrl.currentTabIndex=0;
+          ctrl.currentTabIndex=1;
           //setState(() {});
         }
       },

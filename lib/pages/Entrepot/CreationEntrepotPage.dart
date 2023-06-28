@@ -164,6 +164,10 @@ class _CreationEntrepotPageState extends State<CreationEntrepotPage> {
 
     if (res.status && res.data?["status"]==true) {
       await Future.delayed(Duration(seconds: 2));
+      ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+          backgroundColor: Colors.green,
+          duration: const Duration(seconds: 5),
+          content: Text('Operation reussie')));
       Navigator.pop(context, [true, Routes.EntrepotRoute]);
     }
     else {
